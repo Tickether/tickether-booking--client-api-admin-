@@ -1,0 +1,35 @@
+import useFetch from "../../hooks/useFetch";
+import "./featuredMusicians.css";
+
+const FeaturedMusicians = () => {
+
+    const {data, loading, error} = useFetch("http://localhost:8000/api/bookees?featured=true&limit=4&min=1000&max=21000")
+ 
+    return (
+        <div className="fp">
+            {loading ? (
+                "loading"
+            )   :   (
+                <>
+                    {data.map((item)=>(
+                        <div className="fpItems" key={item._id} >
+                            <img src={item.image} alt="" className="fpImg" />
+                            <span className="fpName">{item.name}</span>
+                            <span className="fpGenre">{item.genre}</span>
+                            <span className="fpGenre">Starting from ${item.cheapestPrice}</span>
+                            
+                            {item.rating && 
+                                <div className="fpRating">
+                                    <button>{item.rating}</button>
+                                    <span>Excellent</span>
+                                </div>
+                            } 
+                        </div>
+                    ))}
+                </>
+            )}
+        </div>
+    )
+}
+
+export default FeaturedMusicians
