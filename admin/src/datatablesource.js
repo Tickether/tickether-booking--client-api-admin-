@@ -1,28 +1,45 @@
 export const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
-        field: "user",
-        headerName: "User",
+        field: "name",
+        headerName: "Name",
         width: 230,
         renderCell: (params) => {
             return (
             <div className="cellWithImg">
-                <img className="cellImg" src={params.row.img} alt="avatar" />
-                {params.row.username}
+                {params.row.bookName}
             </div>
             );
         },
     },
     {
-        field: "email",
-        headerName: "Email",
+        field: "type",
+        headerName: "Type",
         width: 230,
+        renderCell: (params) => {
+            return (
+            <div className="cellWithImg">
+                {params.row.bookType}
+            </div>
+            );
+        },
     },
-  
     {
-        field: "age",
-        headerName: "Age",
+        field: "fee",
+        headerName: "Fee",
         width: 100,
+        renderCell: (params) => {
+            return (
+            <div className="cellWithImg">
+                {params.row.bookFee}
+            </div>
+            );
+        },
+    },
+    {
+        field: "address",
+        headerName: "Address",
+        width: 160,
     },
     {
         field: "status",
@@ -31,7 +48,7 @@ export const userColumns = [
         renderCell: (params) => {
             return (
                 <div className={`cellWithStatus ${params.row.status}`}>
-                    {params.row.status}
+                    {params.row.overBooked}
                 </div>
             );
         },

@@ -3,13 +3,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import useFetch from '../../hooks/useFetch';
 
 const Datatable = () => {
 
-    const [data, setData] = useState(userRows)
+    const {data, loading, error} = useFetch('http://localhost:8000/api/books')
 
+    const [list, setList] = useState();
+    
+
+    console.log(data)
     const handleDelete = (id) => {
-        setData(data.filter(item=>item.id !== id ))
+        //setData(data.filter(item=>item.id !== id ))
     }
 
     const actionColumn =[
@@ -24,7 +29,7 @@ const Datatable = () => {
                             <div className="viewButton">View</div>
                         </Link>
                         
-                        <div className="deleteButton" onClick={()=>handleDelete(params.row.id)}>Delete</div>
+                        <div className="deleteButton" onClick={()=>handleDelete(params.row._id)}>Delete</div>
                     </div>
                 )
             }   
@@ -34,7 +39,7 @@ const Datatable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New User
+                Add New Bookings
                 <Link to='/users/new' className='link'>
                     Add New
                 </Link>
@@ -46,6 +51,7 @@ const Datatable = () => {
                 rowsPerPageOptions={[10]}
                 checkboxSelection
                 className='datagrid'
+                getRowId={row=>row._id}
             />
         </div>
     );
