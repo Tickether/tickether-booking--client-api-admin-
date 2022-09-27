@@ -37,10 +37,10 @@ const Sidebar = () => {
                     </li>
                 </Link>
                 <p className="title">LIST</p>
-                <Link to='/users' style={{ textDecoration:'none' }}>
+                <Link to='/books' style={{ textDecoration:'none' }}>
                     <li>
                         <PersonOutlineIcon className='icon'/>
-                        <span>Booking</span>
+                        <span>Books</span>
                     </li>
                 </Link>
                 <Link to='/products' style={{ textDecoration:'none' }}>
@@ -52,7 +52,7 @@ const Sidebar = () => {
                 <Link style={{ textDecoration:'none' }}>
                     <li>
                         <CreditCardIcon className='icon'/>
-                        <span>Orders</span>
+                        <span>Bookings</span>
                     </li>
                 </Link>
                 <Link style={{ textDecoration:'none' }}>

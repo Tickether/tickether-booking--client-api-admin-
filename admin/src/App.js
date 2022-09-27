@@ -39,7 +39,7 @@ function App() {
                 </ProtectedRoute> 
               } 
             />
-            <Route path="users">
+            <Route path="books">
               <Route 
                 index 
                 element={ 
@@ -49,7 +49,7 @@ function App() {
                 } 
               />
               <Route 
-                path=":userId" 
+                path=":bookId" 
                 element={ 
                   <ProtectedRoute>
                     <Single/>
