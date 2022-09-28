@@ -1,13 +1,12 @@
 import './datatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
-import { userColumns, userRows } from "../../datatablesource";
+import { bookColumns } from "../../datatablesource";
 import { Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import axios from 'axios';
-import { useEffect } from 'react';
 
-const Datatable = () => {
+const Datatable = ({columns}) => {
     const location = useLocation();
     const path = location.pathname.split('/')[1]
     const [list, setList] = useState([]);
@@ -34,7 +33,7 @@ const Datatable = () => {
             renderCell:(params)=>{
                 return (
                     <div className="cellAction">
-                        <Link to='/books/test' style={{ textDecoration:'none' }}>
+                        <Link to={`/${path}/test`} style={{ textDecoration:'none' }}>
                             <div className="viewButton">View</div>
                         </Link>
                         
@@ -42,27 +41,27 @@ const Datatable = () => {
                             <button>Delete</button> 
                         </div>
                     </div>
-                )
-            }   
-        }
-    ]
+                );
+            },   
+        },
+    ];
 
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Bookings
-                <Link to='/users/new' className='link'>
+                {path}
+                <Link to={`/${path}/new`} className='link'>
                     Add New
                 </Link>
             </div>
             <DataGrid
                 rows={list}
-                columns={userColumns.concat(actionColumn)}
+                columns={columns.concat(actionColumn)}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 checkboxSelection
                 className='datagrid'
-                getRowId={row=>row._id}
+                getRowId={(row)=>row._id}
             />
         </div>
     );

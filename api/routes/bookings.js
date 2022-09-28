@@ -11,13 +11,13 @@ router.post('/:bookid/:bookerid', verifyBooker, createBooking);
 router.put('/:id', verifyBooker, updateBooking);
 
 //DELETE
-router.delete('/:id/:bookid/:bookerid', verifyBooker, deleteBooking);
+router.delete('/:id/:bookid/:bookerid', verifyAdmin, deleteBooking);
 
 //GET
-router.get('/:id', verifyBooker, getBooking);
+router.get('/:id', getBooking);
 
 //GET ALL
-router.get('/', verifyAdmin, getBookings);
+router.get('/', getBookings);
 
  
 export default router

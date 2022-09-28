@@ -14,7 +14,8 @@ const BookingSchema = new mongoose.Schema({
     },
     bookingDate: {
         type: Date,
-        required: true
+        required: true,
+        unique: true
     },
     start: {
         type: Number,
@@ -35,6 +36,10 @@ const BookingSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true
+    },
+    offBook: {
+        type: Boolean,
+        default: false
     },
     txnId: {
         type: String
