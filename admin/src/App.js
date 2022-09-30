@@ -3,9 +3,10 @@ import Home from "./pages/home/Home";
 import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
-import New from "./pages/new/New";
+import NewBook from "./pages/new/newBook/NewBook";
+import NewBooking from "./pages/new/newBooking/NewBooking"
 import List from "./pages/list/List";
-import { productInputs, userInputs } from "./formSource";
+import { bookingInputs, bookInputs } from "./formSource";
 import { bookColumns, bookingColumns } from "./datatablesource";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -61,8 +62,8 @@ function App() {
                 path="new" 
                 element={ 
                   <ProtectedRoute>
-                    <New
-                      inputs={userInputs} 
+                    <NewBook
+                      inputs={bookInputs} 
                       title='Add New User'
                     />
                   </ProtectedRoute> 
@@ -90,7 +91,9 @@ function App() {
                 path="new" 
                 element={ 
                   <ProtectedRoute>
-                    <New inputs={productInputs} title='Add New Product'/>
+                    <NewBooking 
+                      inputs={bookingInputs} 
+                      title='Add New Off-Book'/>
                   </ProtectedRoute> 
                 } 
               />

@@ -1,77 +1,48 @@
-export const userInputs = [
+export const bookInputs = [
     {
-      id: 1,
-      label: "Username",
+      id: "bookName",
+      label: "Name",
       type: "text",
       placeholder: "john_doe",
     },
     {
-      id: 2,
-      label: "Name and surname",
+      id: "bookType",
+      label: "Booking Type",
       type: "text",
-      placeholder: "John Doe",
+      placeholder: "Shows or Features",
     },
     {
-      id: 3,
-      label: "Email",
-      type: "mail",
+      id: "description",
+      label: "Description",
+      type: "text",
       placeholder: "john_doe@gmail.com",
     },
     {
-      id: 4,
-      label: "Phone",
-      type: "text",
-      placeholder: "+1 234 567 89",
-    },
-    {
-      id: 5,
-      label: "Password",
-      type: "password",
-    },
-    {
-      id: 6,
-      label: "Address",
-      type: "text",
-      placeholder: "Elton St. 216 NewYork",
-    },
-    {
-      id: 7,
-      label: "Country",
-      type: "text",
-      placeholder: "USA",
+      id: "bookFee",
+      label: "Booking Fee",
+      type: "number",
+      placeholder: "23789",
     },
   ];
   
-  export const productInputs = [
+  export const bookingInputs = [
     {
-      id: 1,
+      id: "bookingDate",
       label: "Title",
       type: "text",
       placeholder: "Apple Macbook Pro",
     },
     {
-      id: 2,
-      label: "Description",
-      type: "text",
-      placeholder: "Description",
-    },
-    {
-      id: 3,
-      label: "Category",
-      type: "text",
-      placeholder: "Computers",
-    },
-    {
-      id: 4,
-      label: "Price",
+      id: "city",
+      label: "City",
       type: "text",
       placeholder: "100",
     },
     {
-      id: 5,
-      label: "Stock",
+      id: "country",
+      label: "Country",
       type: "text",
-      placeholder: "in stock",
+      placeholder: "USA",
     },
   ];
   

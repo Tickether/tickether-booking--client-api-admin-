@@ -1,6 +1,6 @@
-import './new.scss';
-import Navbar from '../../components/navbar/Navbar';
-import Sidebar from '../../components/sidebar/Sidebar';
+import './newBooking.scss';
+import Navbar from '../../../components/navbar/Navbar';
+import Sidebar from '../../../components/sidebar/Sidebar';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState } from 'react';
 

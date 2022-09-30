@@ -7,6 +7,11 @@ const BookingSchema = new mongoose.Schema({
         ref: 'Booker',
         required: true
     },
+    bookee: {
+        type: Schema.ObjectId,
+        ref: 'Bookee',
+        required: true
+    },
     book: {
         type: Schema.ObjectId,
         ref: 'Book',
