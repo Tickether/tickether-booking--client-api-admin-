@@ -35,6 +35,12 @@ const Sidebar = () => {
                         <span>Dashboard</span>
                     </li>
                 </Link>
+                <Link to='/bookee' style={{ textDecoration:'none' }}>
+                    <li>
+                        <CreditCardIcon className='icon'/>
+                        <span>Bookee</span>
+                    </li>
+                </Link>
                 <p className="title">LIST</p>
                 <Link to='/books' style={{ textDecoration:'none' }}>
                     <li>
@@ -111,12 +117,14 @@ const Sidebar = () => {
   }
   
 export default Sidebar;
-  
 
 
 
 
 
+/*
+                
+                */
 
 
 

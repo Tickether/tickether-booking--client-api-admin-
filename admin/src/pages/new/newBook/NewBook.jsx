@@ -10,6 +10,7 @@ const NewBook = () => {
   
   const[info, setInfo] = useState({});
 
+
   const handleChange = (e) => {
     setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
   }

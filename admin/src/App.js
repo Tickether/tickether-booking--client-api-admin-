@@ -11,6 +11,7 @@ import { bookColumns, bookingColumns } from "./datatablesource";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
+import Bookee from './pages/bookee/Bookee';
 
 
 function App() {
@@ -40,7 +41,33 @@ function App() {
                   <Home/>
                 </ProtectedRoute> 
               } 
-            />
+            />    
+            <Route path="bookee">
+              <Route 
+                index 
+                element={ 
+                  <ProtectedRoute>
+                    <Bookee/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path=":bookeeId" 
+                element={ 
+                  <ProtectedRoute>
+                    <Single/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path="new" 
+                element={ 
+                  <ProtectedRoute>
+                    <NewBooking/>
+                  </ProtectedRoute> 
+                } 
+              />
+            </Route>        
             <Route path="books">
               <Route 
                 index 
@@ -124,3 +151,4 @@ function App() {
 }
 
 export default App;
+

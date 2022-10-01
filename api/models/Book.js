@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const BookSchema = new mongoose.Schema({
+    bookee: {
+        type: Schema.ObjectId,
+        ref: 'Bookee',
+        required: true
+    },
     bookName: {
         type: String,
         required: true
