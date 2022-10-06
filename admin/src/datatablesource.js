@@ -24,7 +24,7 @@ export const bookColumns = [
         },
     },
   ];
-  
+   
 export const bookingColumns = [
     { field: "_id", headerName: "ID", width: 70 },
     {
@@ -49,7 +49,7 @@ export const bookingColumns = [
     },
     {
         field: "country",
-        headerName: "Statu",
+        headerName: "Status",
         width: 160,
     },
 ];

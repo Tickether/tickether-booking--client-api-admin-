@@ -28,6 +28,9 @@ const BookerSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    bookee: {
+        type: [String]
+    },
     bookings: {
         type: [String]
     },

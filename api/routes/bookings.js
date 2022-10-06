@@ -5,13 +5,13 @@ import { verifyAdmin, verifyBooker } from '../utils/verifyToken.js';
 const router = express.Router();
 
 //CREATE
-router.post('/:bookid/:bookerid', verifyBooker, createBooking);
+router.post('/:bookid/:bookerid/:bookeeid', verifyBooker, createBooking);
 
 //UPDATE
 router.put('/:id', verifyBooker, updateBooking);
 
 //DELETE
-router.delete('/:id/:bookid/:bookerid', verifyAdmin, deleteBooking);
+router.delete('/:id/:bookid/:bookerid/:bookeeid', verifyAdmin, deleteBooking);
 
 //GET
 router.get('/:id', getBooking);

@@ -5,13 +5,16 @@ import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
 import NewBook from "./pages/new/newBook/NewBook";
 import NewBooking from "./pages/new/newBooking/NewBooking"
-import List from "./pages/list/List";
+// import List from "./pages/list/List";
 import { bookingInputs, bookInputs } from "./formSource";
-import { bookColumns, bookingColumns } from "./datatablesource";
+// import { bookColumns, bookingColumns } from "./datatablesource";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
 import Bookee from './pages/bookee/Bookee';
+import NewBookee from './pages/new/newBookee/NewBookee';
+import Bookings from './pages/bookings/Bookings';
+import Books from './pages/books/Books';
 
 
 function App() {
@@ -63,7 +66,7 @@ function App() {
                 path="new" 
                 element={ 
                   <ProtectedRoute>
-                    <NewBooking/>
+                    <NewBookee/>
                   </ProtectedRoute> 
                 } 
               />
@@ -73,7 +76,7 @@ function App() {
                 index 
                 element={ 
                   <ProtectedRoute>
-                    <List columns={bookColumns}/>
+                    <Books />
                   </ProtectedRoute> 
                 } 
               />
@@ -102,7 +105,7 @@ function App() {
                 index 
                 element={ 
                   <ProtectedRoute>
-                    <List columns={bookingColumns}/>
+                    <Bookings/>
                   </ProtectedRoute> 
                 }
               />
@@ -123,24 +126,6 @@ function App() {
                       title='Add New Off-Book'/>
                   </ProtectedRoute> 
                 } 
-              />
-            </Route>
-            <Route path="messages">
-              <Route 
-                index 
-                element={ 
-                  <ProtectedRoute>
-                    <List/>
-                  </ProtectedRoute> 
-                }
-              />
-              <Route 
-                path=":messageId" 
-                element={ 
-                  <ProtectedRoute>
-                    <Single/>
-                  </ProtectedRoute> 
-                }
               />
             </Route>   
           </Route>

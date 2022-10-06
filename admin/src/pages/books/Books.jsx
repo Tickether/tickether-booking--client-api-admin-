@@ -1,21 +1,22 @@
-import './list.scss';
+import './books.scss';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import Datatable from '../../components/datatable/Datatable';
+import BooksDatatable from '../../components/booksdatatable/BooksDatatable';
 
-const List = ({columns}) => {
+
+const Books = ({columns}) => {
   return (
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
         <Navbar/>
-        <Datatable columns={columns}/>
+        <BooksDatatable/>
       </div>
     </div>
   );
 }
   
-export default List;
+export default Books;
   
 
 

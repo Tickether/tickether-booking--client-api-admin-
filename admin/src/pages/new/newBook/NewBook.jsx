@@ -8,37 +8,34 @@ import { bookInputs } from "../../../formSource";
 
 const NewBook = () => {
   
-  const[info, setInfo] = useState({});
+  // get booker/UID from local storage 
+  const booker = JSON.parse(localStorage.getItem('user'))
 
+  // filter bookee from UID(aka booker)
+  const bookeeid = booker.bookee[0]
+  
+  const[info, setInfo] = useState({});
 
   const handleChange = (e) => {
     setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
   }
-/*
+
   const handleClick = async e => {
     e.preventDefault()
-    const data = new FormData()
-    data.append('file', file)
-    data.append('upload_preser', 'upload')
+    
     try {
-      const uploadRes = await axios.post(
-        '', 
-        data
-      );
-      const {url} = uploadRes.data
-
       const newBook = {
         ...info,
-        img:url,
+        bookee:bookeeid,
       }
 
-      await axios.post('/book', newBook)
+      await axios.post(`localhost:8000/api/books/${bookeeid}`, newBook)
 
     } catch (err) {
       console.log(err)
     }
   }
-*/
+
   return (
     <div className="new">
       <Sidebar/>
@@ -56,7 +53,7 @@ const NewBook = () => {
                   <input id={input.type} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
-              <button >Send</button>
+              <button onClick={handleClick} >Send</button>
             </form>
           </div>
         </div>

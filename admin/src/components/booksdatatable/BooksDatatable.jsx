@@ -1,24 +1,29 @@
-import './datatable.scss';
+import './booksdatatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import axios from 'axios';
+import { bookColumns } from '../../datatablesource';
 
-const Datatable = ({columns}) => {
-    const location = useLocation();
-    const path = location.pathname.split('/')[1]
+const BooksDatatable = () => {
+    // get booker/UID from local storage 
+    const booker = JSON.parse(localStorage.getItem('user'))
+
+    // filter bookee from UID(aka booker)
+    const bookeeid = booker.bookee[0]
+
     const [list, setList] = useState([]);
-    const {data, loading, error} = useFetch(`http://localhost:8000/api/${path}`)
+    const {data, loading, error} = useFetch(`http://localhost:8000/api/bookees/books/${bookeeid}`)
 
     useEffect(()=>{
         setList(data)
     }, [data])
-
+  
     console.log(data)
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/${path}/${id}`)
+            await axios.delete(`http://localhost:8000/api/books/${id}`)
             setList(list.filter((item)=>item._id !== id ))
         } catch (err) {}
         
@@ -32,7 +37,7 @@ const Datatable = ({columns}) => {
             renderCell:(params)=>{
                 return (
                     <div className="cellAction">
-                        <Link to={`/${path}/test`} style={{ textDecoration:'none' }}>
+                        <Link to={`/books/test`} style={{ textDecoration:'none' }}>
                             <div className="viewButton">View</div>
                         </Link>
                         
@@ -48,14 +53,14 @@ const Datatable = ({columns}) => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                {path}
-                <Link to={`/${path}/new`} className='link'>
+                Books
+                <Link to={`/books/new`} className='link'>
                     Add New
                 </Link>
             </div>
             <DataGrid
                 rows={list}
-                columns={columns.concat(actionColumn)}
+                columns={bookColumns.concat(actionColumn)}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 checkboxSelection
@@ -66,5 +71,5 @@ const Datatable = ({columns}) => {
     );
 }
   
-export default Datatable;
+export default BooksDatatable;
   

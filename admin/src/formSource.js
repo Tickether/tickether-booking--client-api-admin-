@@ -54,26 +54,26 @@ export const bookeeInputs = [
     placeholder: "Apple Macbook Pro",
   },
   {
+    id: "label",
+    label: "Recording Label",
+    type: "text",
+    placeholder: "Apple Macbook Pro",
+  },
+  {
     id: "type",
     label: "Type",
     type: "text",
     placeholder: "Apple Macbook Pro",
   },
   {
-    id: "cover",
-    label: "Cover",
-    type: "text",
-    placeholder: "Apple Macbook Pro",
-  },
-  {
     id: "genre",
-    label: "genre",
+    label: "Genre",
     type: "text",
     placeholder: "Apple Macbook Pro",
   },
   {
     id: "region",
-    label: "region",
+    label: "Region",
     type: "text",
     placeholder: "Apple Macbook Pro",
   },
@@ -81,7 +81,7 @@ export const bookeeInputs = [
     id: "city",
     label: "City",
     type: "text",
-    placeholder: "100",
+    placeholder: "town",
   },
   {
     id: "country",
@@ -110,7 +110,7 @@ export const bookeeInputs = [
   {
     id: "cheapestPrice",
     label: "Starting Price",
-    type: "text",
-    placeholder: "USA",
+    type: "number",
+    placeholder: "200",
   },
 ];

@@ -34,12 +34,6 @@ const BookSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    availableBookings: {
-        type: [Date]
-    },
-    unavailableBookings: {
-        type: [Date]
-    },
     bookings: {
         type: [String]
     },

@@ -3,8 +3,11 @@ import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Chart from '../../components/chart/Chart';
 import List from '../../components/table/Table';
+import useFetch from '../../hooks/useFetch';
 
-const Single = () => {
+const Single = () => { 
+  const {data, loading, error} = useFetch(`http://localhost:8000/api/bookee/`)
+
   return (
     <div className="single">
       <Sidebar/>
@@ -42,11 +45,11 @@ const Single = () => {
             </div>
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title={'User Spending (Last 6 Months)'} />
+            <Chart aspect={3 / 1} title={'User Withdrawals (Last 6 Months)'} />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
+          <h1 className="title">Lastest Withdrawals</h1>
           <List/>
         </div>
       </div>

@@ -32,4 +32,6 @@ router.get('/:id', verifyBooker, getBooker);
 //GET ALL
 router.get('/', verifyAdmin, getBookers);
 
+//router.get('/bookees/:id', getBookerBookee)
+
 export default router

@@ -1,13 +1,53 @@
 import './newBooking.scss';
 import Navbar from '../../../components/navbar/Navbar';
 import Sidebar from '../../../components/sidebar/Sidebar';
-import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState } from 'react';
+import { bookingInputs } from '../../../formSource';
+import axios from 'axios';
+import useFetch from '../../../hooks/useFetch';
 
 
-const New = ({inputs, title}) => {
+const NewBooking = () => {
+  const booker = JSON.parse(localStorage.getItem('user'));
+  const bookerid = booker._id;
+  const bookeeid = booker.bookee[0];
+
+  const [info, setInfo] = useState({});
+  const [books, setBook] = useState([])
   
-  const[file, setFile] = useState('');
+  const {data, loading, error} = useFetch(`http://localhost:8000/api/bookees/books/${bookeeid}`);
+  console.log(data)
+
+
+  const handleChange = (e) => {
+    setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
+  }
+
+  const handleSelect = (e) => {
+    const value = Array.from(e.target.selectedOptions, option => option.value)
+    setBook(value)
+  }
+
+  const handleClick = async e => {
+    e.preventDefault()
+    try {
+      const newBookee = {
+        ...info,
+        booker: bookerid,
+        book: books[0],
+        bookee: bookeeid,
+        offBook: true
+      }
+
+      //console.log(newBookee)
+      const booking = await axios.post(`http://localhost:8000/api/bookings/${bookerid}/${bookeeid}`, newBookee)
+
+      console.log(booking)
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <div className="new">
@@ -15,39 +55,28 @@ const New = ({inputs, title}) => {
       <div className="newContainer">
         <Navbar/>
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Add new off-booking</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <img 
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              } 
-              alt="" 
-            />
-          </div>
           <div className="right">
             <form>
             <div className="formInput">
-                <label htmlFor='file'>
-                  Image: <DriveFolderUploadOutlinedIcon className='icon'/>
-                </label>
-                <input 
-                  type="file"  
-                  id='file'
-                  onChange={e=>setFile(e.target.files[0])} 
-                  style={{display:'none'}}
-                />
               </div>
-              {inputs.map((input) => (
+              {bookingInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
+                  <input onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
-              <button>Send</button>
+              <div className="selectBooks">
+                <label htmlFor="">books</label>
+                <select id="books" onChange={handleSelect}>
+                  {loading ? "loading" : data && data.map(book=>(
+                    <option key={book._id} value={book._id}>{book.bookName}</option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={handleClick}>Send</button>
             </form>
           </div>
         </div>
@@ -56,7 +85,7 @@ const New = ({inputs, title}) => {
   );
 }
   
-export default New;
+export default NewBooking;
   
 
 

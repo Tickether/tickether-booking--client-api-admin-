@@ -1,11 +1,21 @@
 import Bookee from "../models/Bookee.js";
 import Book from "../models/Book.js";
+import Booker from "../models/Booker.js";
+import Booking from "../models/Booking.js";
 
 export const createBookee = async (req, res, next) => {
+    const bookerId = req.params.bookerid;
     const newBookee = new Bookee(req.body);
 
     try{
         const savedBookee = await newBookee.save();
+        try {
+            await Booker.findByIdAndUpdate(bookerId, {
+                $push: { bookee: savedBookee._id },
+            });
+        } catch (err) {
+            next(err);
+        }
         res.status(200).json(savedBookee);
     } catch(err) {
         next(err);
@@ -26,10 +36,18 @@ export const updateBookee = async (req, res, next) => {
 }
 
 export const deleteBookee = async (req, res, next) => {
+    const bookerId = req.params.bookerid;
     try{
         await Bookee.findByIdAndDelete(
             req.params.id
         );
+        try {
+            await Booker.findByIdAndUpdate(bookerId, {
+                $pull: { bookees: req.params.id },
+            });
+        } catch (err) {
+            next(err);
+        }
         res.status(200).json('Bookee has been deleted');
     } catch(err) {
         next(err);
@@ -40,7 +58,7 @@ export const getBookee = async (req, res, next) => {
     try{
         const bookee = await Bookee.findById(
             req.params.id
-        );
+        ); 
         res.status(200).json(bookee);
     } catch(err) {
         next(err);
@@ -104,6 +122,21 @@ export const getBookeeBooks = async (req, res, next) =>{
         next(err);
     }
 };
+
+export const getBookeeBookings = async (req, res, next) =>{
+    try{
+        const bookee = await Bookee.findById(req.params.id)
+        const list = await Promise.all(
+            bookee.bookings.map(booking=>{
+                return Booking.findById(booking);
+            })
+        );
+        res.status(200).json(list)
+    }catch(err){
+        next(err);
+    }
+};
+
 
 /*
 export const countByRegion = async (req, res, next) => {

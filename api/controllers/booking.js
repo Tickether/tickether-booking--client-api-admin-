@@ -1,11 +1,13 @@
 
 import Book from "../models/Book.js";
+import Bookee from "../models/Bookee.js";
 import Booker from "../models/Booker.js";
 import Booking from "../models/Booking.js";
 
 export const createBooking = async (req, res, next) => {
     const bookId = req.params.bookid;
     const bookerId = req.params.bookerid;
+    const bookeeId = req.params.bookeeid;
     const newBooking = new Booking(req.body)
 
     try{
@@ -15,6 +17,9 @@ export const createBooking = async (req, res, next) => {
                 $push: { bookings: savedBooking._id },
             });
             await Booker.findByIdAndUpdate(bookerId, {
+                $push: { bookings: savedBooking._id },
+            });
+            await Bookee.findByIdAndUpdate(bookeeId, {
                 $push: { bookings: savedBooking._id },
             });
         } catch (err) {
@@ -42,6 +47,7 @@ export const updateBooking = async (req, res, next) => {
 export const deleteBooking = async (req, res, next) => {
     const bookId = req.params.bookid;
     const bookerId = req.params.bookerid;
+    const bookeeId = req.params.bookeeid;
     try{
         await Booking.findByIdAndDelete(req.params.id);
         try {
@@ -49,6 +55,9 @@ export const deleteBooking = async (req, res, next) => {
                 $pull: { bookings: req.params.id },
             });
             await Booker.findByIdAndUpdate(bookerId, {
+                $pull: { bookings: req.params.id },
+            });
+            await Bookee.findByIdAndUpdate(bookeeId, {
                 $pull: { bookings: req.params.id },
             });
         } catch (err) {

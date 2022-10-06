@@ -50,6 +50,15 @@ const BookeeSchema = new mongoose.Schema({
     books: {
         type: [String],
     },
+    bookings: {
+        type: [String],
+    },
+    featureBookings: {
+        type: [Date]
+    },
+    showBookings: {
+        type: [Date]
+    },
     featured: {
         type: Boolean,
         default: false,
