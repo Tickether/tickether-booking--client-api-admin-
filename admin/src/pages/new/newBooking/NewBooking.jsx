@@ -31,17 +31,29 @@ const NewBooking = () => {
   const handleClick = async e => {
     e.preventDefault()
     try {
-      const newBookee = {
+      const newBooking = {
         ...info,
         booker: bookerid,
         book: books[0],
         bookee: bookeeid,
         offBook: true
       }
+      /*
+      const showDate = {
+        showBookings: true
+        
+      }
+      const featureDate = {
+        featureBookings: true
+      }
+      */
 
-      //console.log(newBookee)
-      const booking = await axios.post(`http://localhost:8000/api/bookings/${bookerid}/${bookeeid}`, newBookee)
 
+
+      console.log(newBooking)
+      const booking = await axios.post(`http://localhost:8000/api/bookings/${books[0]}/${bookerid}/${bookeeid}`, newBooking)
+      //await axios.put(`http://localhost:8000/api/bookees/${bookeeid}`, showDate)
+      //await axios.put(`http://localhost:8000/api/bookees/${bookeeid}`, featureDate)
       console.log(booking)
 
     } catch (err) {
@@ -65,7 +77,7 @@ const NewBooking = () => {
               {bookingInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input onChange={handleChange} type={input.type} placeholder={input.placeholder} />
+                  <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
               <div className="selectBooks">

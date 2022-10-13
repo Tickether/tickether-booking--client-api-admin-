@@ -5,7 +5,7 @@ import { verifyAdmin, verifyBooker } from '../utils/verifyToken.js';
 const router = express.Router();
 
 //CREATE
-router.post('/:bookid/:bookerid/:bookeeid', verifyBooker, createBooking);
+router.post('/:bookid/:bookerid/:bookeeid', createBooking);
 
 //UPDATE
 router.put('/:id', verifyBooker, updateBooking);

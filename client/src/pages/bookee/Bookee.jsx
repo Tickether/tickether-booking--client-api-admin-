@@ -27,7 +27,7 @@ const Bookee = () => {
 
     const[openModal, setOpenModal] = useState(false)
 
-    const {data, loading, error, } = useFetch(`http://localhost:8000/api/bookees/find/${id}`)
+    const {data, loading } = useFetch(`http://localhost:8000/api/bookees/find/${id}`)
 
     const {selectedDate} = useContext(SearchContext);
 
@@ -108,7 +108,7 @@ const Bookee = () => {
                             </span>
                             <div className="artistImages">
                                 {data.cover.map((photo, i)=>(
-                                    <div className="artistImgWrapper">
+                                    <div className="artistImgWrapper" key={i} >
                                         <img 
                                             onClick={()=>handleOpen(i)} 
                                             src= {photo} 
@@ -134,7 +134,7 @@ const Bookee = () => {
                                     <h2>
                                         <b>$12,345</b> (per booking)
                                     </h2>
-                                    <button onClick={handleClick}>Connect & Book </button>
+                                    <button onClick={handleClick}> Connect & Book </button>
                                 </div>
                             </div>
                         </div>

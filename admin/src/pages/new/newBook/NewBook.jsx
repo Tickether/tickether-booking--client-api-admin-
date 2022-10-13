@@ -29,7 +29,9 @@ const NewBook = () => {
         bookee:bookeeid,
       }
 
-      await axios.post(`localhost:8000/api/books/${bookeeid}`, newBook)
+      console.log(newBook)
+
+      await axios.post(`http://localhost:8000/api/books/${bookeeid}`, newBook)
 
     } catch (err) {
       console.log(err)
@@ -50,7 +52,7 @@ const NewBook = () => {
               {bookInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input id={input.type} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
+                  <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
               <button onClick={handleClick} >Send</button>

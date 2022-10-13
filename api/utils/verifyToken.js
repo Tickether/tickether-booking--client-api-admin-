@@ -16,7 +16,7 @@ export const verifyToken = (req, res, next) => {
 
 export const verifyBooker = (req, res, next) => {
     verifyToken(req, res, () =>{
-        if(req.booker.id === req.params.id || req.booker.isAdmin || req.booker.isBookee){
+        if(req.booker.id === req.params.id || req.booker.isBookee){
             next();
         } else {
             if (err) 

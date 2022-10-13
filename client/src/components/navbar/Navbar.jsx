@@ -7,6 +7,8 @@ const Navbar = () => {
 
     const { user } = useContext(AuthContext);
 
+    console.log(user)
+
     return (
         <div className='navbar'>
             <div className='navContainer'>
@@ -14,7 +16,7 @@ const Navbar = () => {
                     <span className='logo'>tickether</span>
                 </Link>
                 {user ? (
-                    (user.details).firstName
+                    (user.firstName)
                 )   :   (
                     <>
                         <div className="navItems">

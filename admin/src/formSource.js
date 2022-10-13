@@ -28,15 +28,21 @@ export const bookInputs = [
 export const bookingInputs = [
   {
     id: "bookingDate",
-    label: "Title",
-    type: "text",
+    label: "Date",
+    type: "date",
     placeholder: "Apple Macbook Pro",
+  },
+  {
+    id: "start",
+    label: "Start",
+    type: "number",
+    placeholder: "1400",
   },
   {
     id: "city",
     label: "City",
     type: "text",
-    placeholder: "100",
+    placeholder: "London",
   },
   {
     id: "country",
