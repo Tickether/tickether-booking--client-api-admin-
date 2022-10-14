@@ -5,27 +5,88 @@ import useFetch from '../../hooks/useFetch';
 import { useContext, useState } from 'react';
 import { SearchContext } from '../../context/SearchContext';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { bookingInputs } from '../../formSource';
 import DatePicker from "react-datepicker";
+import { ethers } from "ethers";
+import Web3Modal from "web3modal";
+import { daiABI } from "./dai";
+
+const usdcAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
+
+
+const providerOptions = {
+
+    /*
+
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: "8231230ce0b44ec29c8682c1e47319f9" // required
+      }
+    },
+    coinbasewallet: {
+      package: CoinbaseWalletSDK, // required
+      options: {
+        infuraId: "8231230ce0b44ec29c8682c1e47319f9" // required
+      }
+    }
+
+    */
+    
+};
 
 
 const Reserve = ({setOpen, bookeeId}) =>{
+
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    const [web3Provider, setWeb3Provider] = useState(null)
 
     const [books, setBook] = useState([])
     const [selectBook, setSelectBook] = useState({})
     const [info, setInfo] = useState({});
     const [isActive, setIsActive] = useState(false);
 
+    /*
+    const [isConfirming, setConfirming] = useState (Boolean(0));
+    const [isSent, setSent] = useState (Boolean(0));
+    const [isMinted, setMinted] = useState(Boolean(0));
+    */
 
     const { data, loading, error } = useFetch(`http://localhost:8000/api/bookees/books/${bookeeId}`)
 
     const {selectedDate} = useContext(SearchContext);
-    //const location = useLocation()
+
     const [_selectedDate, setSelectedDate] = useState(selectedDate);
+
+    
+
+    
 
 
     const navigate = useNavigate()
+
+    const connectAccount = async () => { 
+        try {
+            const web3Modal = new Web3Modal({
+                cacheProvider: false, // optional
+                providerOptions // required
+            });
+            const instance = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(instance);
+            console.log(provider)
+
+            const signer = provider.getSigner();
+            console.log(signer)
+
+            if(provider) {
+                setWeb3Provider(provider)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     const handleChange = (e) => {
         setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
@@ -39,19 +100,81 @@ const Reserve = ({setOpen, bookeeId}) =>{
         console.log(book.data)
     }
 
-    
+    async function handleApproval() {
+        if (web3Provider) { 
+            const signer = web3Provider.getSigner();
+            const address = (await signer.getAddress()).toLowerCase();
+            const usdContract = new ethers.Contract(
+                usdcAddress,
+                daiABI,
+                signer
+            );
+            const maxApproval = 3000000000000000; //3-DAI;
+            try {
+                let res = await usdContract.allowance(address, selectBook.contractAddress);
+                console.log('res: ', res)
+                if (res < maxApproval){
+                    let response = await usdContract.approve(selectBook.contractAddress, maxApproval);
+                    console.log('response: ', response)
+                }
+                
+            } 
+            catch (err) {
+                console.log('error', err )
+            }
+        }
+    }
 
     const handleClick = async () => {
-        try{
-            //wallet connect and mint
-            //After metamask corfirmation of mint and store txid
-            const bookId = await data._id
-            const res = axios.put(`/bookees/${bookId}`, {dates:selectedDate}) // unavailable Date to BookId
-            const createBooking = axios.post(`http://localhost:8000/api/bookings/bookid/bookerid/bookeeid`) // Bookings information from form
-            setOpen(false)
-            navigate('/')
-        } catch(err) {
+        if (web3Provider) {
+            const signer = web3Provider.getSigner();
+            const bookingContract = new ethers.Contract(
+                selectBook.contractAddress,
+                selectBook.contractJson.abi,
+                signer
+            );
+            try{
+                //attemprt erc 20 approval
+                handleApproval();
 
+                // attempt udsc booking
+                const response = await bookingContract.mint();
+                console.log(response)
+
+                //After metamask corfirmation of mint and store txid
+                const transactionHash = response['hash']
+                const txReceipt = []
+                do {
+                let txr = await web3Provider.getTransactionReceipt(transactionHash)
+                txReceipt[0]=txr
+                console.log('test')
+                } while (txReceipt[0] == null) ;
+                
+                console.log(txReceipt[0])
+
+                //Post to DB after confirmation 
+                const newBooking = {
+                    ...info,
+                    txnId: transactionHash,
+                    booker: user.bookee[0],
+                    book: books[0],
+                    bookee: bookeeId,
+                }
+                // if booking type
+                if (selectBook.bookType === 'events'){
+                    axios.post(`http://localhost:8000/api/bookings/bookid/bookerid/bookeeid`, newBooking) // Bookings information from form
+                    axios.put(`/bookees/${bookeeId}`, {showBookings:selectedDate}) // unavailable Date to BookId
+                } else if (selectBook.bookType === 'features') {
+                    axios.post(`http://localhost:8000/api/bookings/bookid/bookerid/bookeeid`, newBooking) // Bookings information from form
+                    axios.put(`/bookees/${bookeeId}`, {featureBookings:selectedDate}) // unavailable Date to BookId
+
+                }  
+                // end if wrapper
+                setOpen(false)
+                navigate('/')
+            } catch(err) {
+                console.log(err)
+            }
         }
     }
 
@@ -65,60 +188,68 @@ const Reserve = ({setOpen, bookeeId}) =>{
     */
 
     return (
-        <div className="reserve">
+        <div className="reserve">            
             <div className="rContainer">
                 <FontAwesomeIcon 
                     icon={ faCircleXmark } 
                     className='rClose'
                     onClick={() => setOpen(false)}
                 />
-                <div className="books">
-                    <div className="selectBooks">
-                        <label htmlFor="">Select Booking:</label>
-                        <select id="books" onChange={handleSelect}>
-                        {loading ? "loading" : data && data.map(book=>(
-                            <option key={book._id} value={book._id}>{book.bookName}</option>
-                        ))}
-                        </select>
-                        <div className='bookInfo'>
-                            <div className='infoType'>{selectBook.bookType}</div>
-                            <span>Booking Fee: </span>
-                            <span>{selectBook.bookFee}</span>
-                            <div className="accordion-item">
-                                <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-                                    <div>Booking Terms</div>
-                                    <div>{isActive ? '-' : '+'}</div>
-                                </div>
-                                {isActive && <div className="accordion-content">{selectBook.description}</div>}
-                            </div>
-                        </div>
-                        <div className='input'>
-                            {bookingInputs.map((input) => (
-                                <div className="formInput" key={input.id}>
-                                <label>{input.label}</label>
-                                <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
-                                </div>
-                            ))}
-                            <div className="formInput">
-                                <label>Date</label>
-                                <span>
-                                    <DatePicker 
-                                        className='date'
-                                        selected={_selectedDate}
-                                        onChange={(date) => setSelectedDate(date)} 
-                                        minDate= {new Date()}      
-                                    />
-                                </span>
-                            </div>
-                        </div>
+                {web3Provider == null ? (
+                    <div>
+                        <p className='paragraphs'>Please connect your wallet to complete booking</p>
+                        <button onClick={connectAccount}>connect</button>
                     </div>
-                </div>   
-                <button 
-                    onClick={handleClick}  
-                    className="rButton"
-                >
-                    Book Now!
-                </button>
+                
+                )   :   (
+                    <div className="books">
+                        <div className="selectBooks">
+                            <label htmlFor="">Select Booking:</label>
+                            <select id="books" onChange={handleSelect}>
+                            {loading ? "loading" : data && data.map(book=>(
+                                <option key={book._id} value={book._id}>{book.bookName}</option>
+                            ))}
+                            </select>
+                            <div className='bookInfo'>
+                                <div className='infoType'>{selectBook.bookType}</div>
+                                <span>Booking Fee: </span>
+                                <span>{selectBook.bookFee}</span>
+                                <div className="accordion-item">
+                                    <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
+                                        <div>Booking Terms</div>
+                                        <div>{isActive ? '-' : '+'}</div>
+                                    </div>
+                                    {isActive && <div className="accordion-content">{selectBook.description}</div>}
+                                </div>
+                            </div>
+                            <div className='input'>
+                                {bookingInputs.map((input) => (
+                                    <div className="formInput" key={input.id}>
+                                    <label>{input.label}</label>
+                                    <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
+                                    </div>
+                                ))}
+                                <div className="formInput">
+                                    <label>Date</label>
+                                    <span>
+                                        <DatePicker 
+                                            className='date'
+                                            selected={_selectedDate}
+                                            onChange={(date) => setSelectedDate(date)} 
+                                            minDate= {new Date()}      
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <button 
+                            onClick={handleClick}  
+                            className="rButton"
+                        >
+                            Book Now!
+                        </button>
+                    </div>   
+                )}   
             </div>
         </div>
     )
