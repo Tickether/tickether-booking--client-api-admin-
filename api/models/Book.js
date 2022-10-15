@@ -26,10 +26,6 @@ const BookSchema = new mongoose.Schema({
         type: String,
 
     },
-    contractJson: {
-        type: String,
-
-    },
     bookFee: {
         type: Number,
         required: true

@@ -8,11 +8,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { bookingInputs } from '../../formSource';
 import DatePicker from "react-datepicker";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import Web3Modal from "web3modal";
 import { daiABI } from "./dai";
+import bookingJSON from "../../Booking.json"
 
-const usdcAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
+const usdcAddress = '0x07865c6E87B9F70255377e024ace6630C1Eaa37F';
 
 
 const providerOptions = {
@@ -109,13 +110,24 @@ const Reserve = ({setOpen, bookeeId}) =>{
                 daiABI,
                 signer
             );
-            const maxApproval = 3000000000000000; //3-DAI;
+            const maxApproval = 3000000; //3-DAI;
             try {
                 let res = await usdContract.allowance(address, selectBook.contractAddress);
                 console.log('res: ', res)
-                if (res < maxApproval){
+                const allowance = BigNumber.from(res._hex).toNumber()
+                console.log(allowance)
+                if (allowance < maxApproval){
                     let response = await usdContract.approve(selectBook.contractAddress, maxApproval);
                     console.log('response: ', response)
+                    const transactionHash = response['hash']
+                    const txReceipt = []
+                    do {
+                    let txr = await web3Provider.getTransactionReceipt(transactionHash)
+                    txReceipt[0]=txr
+                    console.log('confirming...')
+                    } while (txReceipt[0] == null) ;
+                    
+                    console.log(txReceipt[0])
                 }
                 
             } 
@@ -130,15 +142,15 @@ const Reserve = ({setOpen, bookeeId}) =>{
             const signer = web3Provider.getSigner();
             const bookingContract = new ethers.Contract(
                 selectBook.contractAddress,
-                selectBook.contractJson.abi,
+                bookingJSON.abi,
                 signer
             );
             try{
                 //attemprt erc 20 approval
-                handleApproval();
+                await handleApproval();
 
                 // attempt udsc booking
-                const response = await bookingContract.mint();
+                const response = await bookingContract.book();
                 console.log(response)
 
                 //After metamask corfirmation of mint and store txid
@@ -147,7 +159,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
                 do {
                 let txr = await web3Provider.getTransactionReceipt(transactionHash)
                 txReceipt[0]=txr
-                console.log('test')
+                console.log('confirming...')
                 } while (txReceipt[0] == null) ;
                 
                 console.log(txReceipt[0])
