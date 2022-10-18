@@ -13,7 +13,8 @@ const BookSchema = new mongoose.Schema({
     },
     bookType: {
         type: String,
-        required: true
+        required: true,
+        enum: ['Shows', 'Features']
     },
     description: {
         type: String,
@@ -28,7 +29,7 @@ const BookSchema = new mongoose.Schema({
     },
     bookFee: {
         type: Number,
-        required: true
+        required: true 
     },
     bookings: {
         type: [String]

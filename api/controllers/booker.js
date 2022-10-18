@@ -1,5 +1,6 @@
 import Bookee from "../models/Bookee.js";
 import Booker from "../models/Booker.js";
+import Booking from "../models/Booking.js";
 
 export const updateBooker = async (req, res, next) => {
     try{
@@ -44,7 +45,23 @@ export const getBookers = async (req, res, next) => {
         next(err);
     }
 }
+
+export const getBookerBookings = async (req, res, next) =>{
+    try{
+        const booker = await Booker.findById(req.params.id)
+        const list = await Promise.all(
+            booker.bookings.map(booking=>{
+                return Booking.findById(booking);
+            })
+        );
+        res.status(200).json(list)
+    }catch(err){
+        next(err);
+    }
+}
+
 /*
+
 export const getBookerBookee = async (req, res, next) =>{
     try{
         const booker = await Booker.findById(req.params.id)
@@ -58,4 +75,5 @@ export const getBookerBookee = async (req, res, next) =>{
         next(err);
     }
 }
+
 */

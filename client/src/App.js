@@ -4,6 +4,8 @@ import Home from './pages/home/Home';
 import List from './pages/list/List';
 import Bookee from './pages/bookee/Bookee';
 import Login from './pages/login/Login';
+import Success from './pages/success/Success';
+import Bookings from './pages/bookings/Bookings';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path = '/bookees' element={<List/>} />
         <Route path = '/bookees/:id' element={<Bookee/>} />
         <Route path='/login' element={<Login/>}/>
+        <Route path='/success/:id' element={<Success/>}/>
+        <Route path='/bookings' element={<Bookings/>}/>
       </Routes>
     </BrowserRouter>
   );

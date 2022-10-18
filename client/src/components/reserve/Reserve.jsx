@@ -55,7 +55,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const [isMinted, setMinted] = useState(Boolean(0));
     */
 
-    const { data, loading, error } = useFetch(`http://localhost:8000/api/bookees/books/${bookeeId}`)
+    const { data, loading } = useFetch(`http://localhost:8000/api/bookees/books/${bookeeId}`)
 
     const {selectedDate} = useContext(SearchContext);
 
@@ -98,8 +98,10 @@ const Reserve = ({setOpen, bookeeId}) =>{
         setBook(value)
         const book =  await axios.get(`/books/${books[0]}`)
         setSelectBook(book.data)
-        console.log(book.data)
+        
     }
+
+    console.log(selectBook)
 
     async function handleApproval() {
         if (web3Provider) { 
@@ -168,22 +170,22 @@ const Reserve = ({setOpen, bookeeId}) =>{
                 const newBooking = {
                     ...info,
                     txnId: transactionHash,
-                    booker: user.bookee[0],
-                    book: books[0],
+                    booker: user._id,
+                    book: selectBook._id,
                     bookee: bookeeId,
                 }
                 // if booking type
-                if (selectBook.bookType === 'events'){
-                    axios.post(`http://localhost:8000/api/bookings/bookid/bookerid/bookeeid`, newBooking) // Bookings information from form
+                if (selectBook.bookType === 'Shows'){
+                    axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
                     axios.put(`/bookees/${bookeeId}`, {showBookings:selectedDate}) // unavailable Date to BookId
-                } else if (selectBook.bookType === 'features') {
-                    axios.post(`http://localhost:8000/api/bookings/bookid/bookerid/bookeeid`, newBooking) // Bookings information from form
+                } else if (selectBook.bookType === 'Features') {
+                    axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
                     axios.put(`/bookees/${bookeeId}`, {featureBookings:selectedDate}) // unavailable Date to BookId
 
                 }  
                 // end if wrapper
                 setOpen(false)
-                navigate('/')
+                navigate(`/success/${bookeeId}`)
             } catch(err) {
                 console.log(err)
             }
