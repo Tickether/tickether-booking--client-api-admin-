@@ -13,7 +13,9 @@ const Bookings = () => {
     const user = JSON.parse(localStorage.getItem('user'))
 
     const [list, setList] = useState([]);
-    const {data, loading, error} = useFetch(`http://localhost:8000/api/bookers/bookings/${user._id}`)
+    const {data} = useFetch(`http://localhost:8000/api/bookers/bookings/${user._id}`)
+
+    console.log(data)
 
     useEffect(()=>{
         setList(data)

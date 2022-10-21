@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import "./featured.css";
 
 
 const Featured = () => {
 
-    const {data, loading, error} = useFetch("http://localhost:8000/api/bookees/countByGenre?genres=Afrobeats,Pop,HipHop")
+    const {data, loading} = useFetch("http://localhost:8000/api/bookees/countByGenre?genres=Afrobeats,Pop,HipHop")
 
     //console.log(data)
 
@@ -15,18 +16,22 @@ const Featured = () => {
             )   :   (
                 <>
                     <div className="featuredItems">
+                        <Link to={`/bookees/genre/Afrobeats`}>
                         <img src="https://bafybeihcsrqz33yvp46tjm2zvp2jdsiacgwc26monpu2xf46nvm5su5wjq.ipfs.nftstorage.link/afro.jpg" alt="" className="featuredImg" />
                         <div className="featuredTitles">
                             <h1>Afrobeats</h1>
                             <h2>{data[0]} musicians</h2>
-                    </div>
+                        </div>
+                        </Link>
                     </div>
                     <div className="featuredItems">
+                        <Link to={`/bookees/genre/Pop`}>
                         <img src="https://bafybeiayu6gutj263jaksxr46qbeytne7lgt55rgzuvweepi2imv2k2xoq.ipfs.nftstorage.link/pop.jpeg" alt="" className="featuredImg" />
                         <div className="featuredTitles">
                             <h1>Pop</h1>
                             <h2>{data[1]} musicians</h2>
                         </div>
+                        </Link>
                     </div>
                     <div className="featuredItems">
                         <img src="https://bafybeib37mcuwqhdjs6r6jf2stprufgqb7ffcdwy5usk2rtmocv5crzou4.ipfs.nftstorage.link/hiphop.jpg" alt="" className="featuredImg" />

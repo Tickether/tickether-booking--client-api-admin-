@@ -1,23 +1,21 @@
-import React from "./list.css";
+import React from "./listGenre.css";
 import Header from "../../components/header/Header";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import DatePicker from "react-datepicker";
 import SearchItems from "../../components/searchItems/SearchItems";
 import useFetch from "../../hooks/useFetch";
 
 
-const List = () => {
+const ListGenre= () => {
     
-    const location = useLocation()
-    const [selectedDate, setSelectedDate] = useState(location.state.selectedDate);
-    const [genre, setGenre] = useState(location.state.genre);
-    const [region, setRegion] = useState(location.state.region);
+    const location = useLocation();
+    const _genre = location.pathname.split("/")[3];
+    const [genre, setGenre] = useState(_genre);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
 
-    const {data, loading, reFetch} = useFetch(`/bookees?region=${region}&genre=${genre}&min=${min || 0}&max=${max || 10000000}`)
+    const {data, loading, reFetch} = useFetch(`http://localhost:8000/api/bookees?genre=${genre}&min=${min || 0}&max=${max || 10000000}`)
 
     console.log(data)
 
@@ -34,23 +32,8 @@ const List = () => {
                     <div className="listSearch">
                         <h1 className="lsTitle">Search</h1>
                         <div className="lsItems">
-                            <label>Region</label>
-                            <input type="text" placeholder={region} onChange={e=>setRegion(e.target.value)}/>
-                        </div>
-                        <div className="lsItems">
                             <label>Genre</label>
-                            <input type="text" placeholder={genre} onChange={e=>setGenre(e.target.value)}/>
-                        </div>
-                        <div className="lsItems">
-                            <label>Available</label>
-                            <span>
-                                <DatePicker 
-                                    className='date'
-                                    selected={selectedDate}
-                                    onChange={(date) => setSelectedDate(date)} 
-                                    minDate= {new Date()}      
-                                />
-                            </span>
+                            <input type="text" placeholder={genre} onChange={e=>setGenre(e.target.value)} />
                         </div>
                         <div className="lsItems">
                             <label>Budget</label>
@@ -88,4 +71,4 @@ const List = () => {
     )
 }
 
-export default List
+export default ListGenre
