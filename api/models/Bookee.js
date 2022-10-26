@@ -57,7 +57,8 @@ const BookeeSchema = new mongoose.Schema({
         type: [Date]
     },
     showBookings: {
-        type: [Date]
+        type: [Date],
+        unique: true
     },
     featured: {
         type: Boolean,

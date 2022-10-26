@@ -1,5 +1,6 @@
-import useFetch from "../../hooks/useFetch";
 import "./featuredMusicians.css";
+import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 const FeaturedMusicians = () => {
 
@@ -13,8 +14,11 @@ const FeaturedMusicians = () => {
                 <>
                     {data.map((item)=>(
                         <div className="fpItems" key={item._id} >
+                            <Link to={`/bookees/${item. _id}`}>
                             <img src={item.image} alt="" className="fpImg" />
+                            </Link>
                             <span className="fpName">{item.name}</span>
+                            
                             <span className="fpGenre">{item.genre}</span>
                             <span className="fpGenre">Starting from ${item.cheapestPrice}</span>
                             

@@ -60,12 +60,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const {selectedDate} = useContext(SearchContext);
 
     const [_selectedDate, setSelectedDate] = useState(selectedDate);
-
     
-
-    
-
-
     const navigate = useNavigate()
 
     const connectAccount = async () => { 
@@ -167,23 +162,38 @@ const Reserve = ({setOpen, bookeeId}) =>{
                 console.log(txReceipt[0])
 
                 //Post to DB after confirmation 
-                const newBooking = {
-                    ...info,
-                    txnId: transactionHash,
-                    booker: user._id,
-                    book: selectBook._id,
-                    bookee: bookeeId,
-                }
-                // if booking type
-                if (selectBook.bookType === 'Shows'){
-                    axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                    axios.put(`/bookees/${bookeeId}`, {showBookings:selectedDate}) // unavailable Date to BookId
-                } else if (selectBook.bookType === 'Features') {
-                    axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                    axios.put(`/bookees/${bookeeId}`, {featureBookings:selectedDate}) // unavailable Date to BookId
+                // if null date 
+                if (_selectedDate){
+                    // strip time and get Date()
+                    const onlyDate = _selectedDate.toISOString();
+                    const dateStamp = onlyDate.slice(0,10);
+                    console.log(onlyDate)
+                    console.log(dateStamp)
+                    
+                    //DB Data
+                    const newBooking = {
+                        ...info,
+                        txnId: transactionHash,
+                        booker: user._id,
+                        book: selectBook._id,
+                        bookee: bookeeId,
+                        bookingDate: dateStamp
+                    }
 
-                }  
+                    // if booking type
+                    if (selectBook.bookType === 'Shows'){
+                        axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
+                        axios.put(`/bookees/${bookeeId}`, {showBookings:dateStamp}) // unavailable Date to BookId
+                    } else if (selectBook.bookType === 'Features') {
+                        axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
+                        axios.put(`/bookees/${bookeeId}`, {featureBookings:dateStamp}) // unavailable Date to BookId
+
+                    }
+                }
+                
+
                 // end if wrapper
+                
                 setOpen(false)
                 navigate(`/success/${bookeeId}`)
             } catch(err) {
@@ -192,14 +202,14 @@ const Reserve = ({setOpen, bookeeId}) =>{
         }
     }
 
-    /*
+    
     const isAvailable = (data) =>{
          const isFound = data.unavailalableDates.some(date=>
             date.includes(new Date(date).getTime())
         );
         return !isFound
     }
-    */
+    
 
     return (
         <div className="reserve">            

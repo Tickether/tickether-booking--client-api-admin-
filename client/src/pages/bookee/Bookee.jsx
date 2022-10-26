@@ -94,7 +94,7 @@ const Bookee = () => {
                             </div>
                         )}
                         <div className="artistWrapper">
-                            <button className="connectBook">Connect & Book</button>
+                            <button className="connectBook" onClick={handleClick} >Connect & Book</button>
                             <h1 className="artistName">{data.name}</h1>
                             <div className="artistLocation">
                                 <FontAwesomeIcon icon={faMapLocationDot}/>
@@ -117,25 +117,6 @@ const Bookee = () => {
                                         />
                                     </div>
                                 ))}
-                            </div>
-                            <div className="artistBookingDetails">
-                                <div className="artistBookingDetailsTexts">
-                                    <h1 className="artistBookingTitle">Private Show Booking - Local</h1>
-                                    <p className="artistBookingDesc">
-                                        much yans
-
-                                    </p>
-                                </div>
-                                <div className="artistBookingDetailsPrice">
-                                    <h1>Bla bla Book me</h1>
-                                    <span>
-                                        sdsdsd
-                                    </span>
-                                    <h2>
-                                        <b>$12,345</b> (per booking)
-                                    </h2>
-                                    <button onClick={handleClick}> Connect & Book </button>
-                                </div>
                             </div>
                         </div>
                         <MailList/>
