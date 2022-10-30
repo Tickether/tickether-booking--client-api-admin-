@@ -77,15 +77,15 @@ const Header = ({type}) => {
                             </div>
                             <div className="headerSearchItems">
                                 <FontAwesomeIcon icon={faCalendarDays} className='headerIcon'/>
-                                <span className='headerSearchText'>
+                                <div className='headerSearchText'>
                                     <DatePicker 
                                         className='date'
                                         selected={selectedDate}
                                         onChange={(date) => setSelectedDate(date)} 
                                         minDate= {new Date()}
-                                        
+                                        placeholderText={"Click to select a date"}  
                                     />
-                                </span>
+                                </div>
                             </div>
                             <div className="headerSearchItems">
                                 <button className="headerBtn" onClick={handleSearch}>Search</button>

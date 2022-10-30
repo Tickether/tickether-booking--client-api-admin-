@@ -13,12 +13,13 @@
 }
 
 .headerContainer.listMode{
-    margin:20px 0px 50px 0px;
+    margin:20px 0px 0px 0px;
 }
 
 .headerList{
     display: flex;
     gap: 40px;
+    margin-bottom: 50px;
 }
 
 .headerListItems{
@@ -38,6 +39,15 @@
     margin: 20px 0px;
 }
 
+.headerBtn {
+    background-color: #0071c2;
+    color: white;
+    font-weight: 500;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
 .headerSearch{
     height: 30px;
     background-color: white;
@@ -51,7 +61,6 @@
     bottom: -25px;
     width: 100%;
     max-width: 1024px;
-
 }
 
 .headerIcon{
@@ -60,7 +69,7 @@
 
 .headerSearchItems{
     display: flex;
-    align-content: center;
+    align-items: center;
     gap: 10px;
 }
 
@@ -76,8 +85,10 @@
 }
 
 .date{
-    position: relative;
+    position: absolute;
+    bottom: -13px;
     color: gray;
     cursor: pointer;
-    
+    border: none;
+    outline: none;
 }

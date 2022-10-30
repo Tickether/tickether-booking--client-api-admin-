@@ -26,6 +26,7 @@ const providerOptions = {
         infuraId: "8231230ce0b44ec29c8682c1e47319f9" // required
       }
     },
+
     coinbasewallet: {
       package: CoinbaseWalletSDK, // required
       options: {
@@ -45,6 +46,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const [web3Provider, setWeb3Provider] = useState(null)
 
     const [books, setBook] = useState([])
+    const [bookedDates, setBookedDates] = useState([])
     const [selectBook, setSelectBook] = useState({})
     const [info, setInfo] = useState({});
     const [isActive, setIsActive] = useState(false);
@@ -88,15 +90,29 @@ const Reserve = ({setOpen, bookeeId}) =>{
         setInfo(prev=>({...prev,[e.target.id]:e.target.value}))
     }
 
+    const handleBookedDates = async () => {
+        let excludedDates = []
+        const bookee =  await axios.get(`http://localhost:8000/api/bookees/find/${bookeeId}`)
+        const bookedDates = bookee.data.showBookings;
+        console.log(bookedDates)
+        for (let i = 0; i < bookedDates.length; i++){
+            excludedDates.push(new Date(bookedDates[i]));
+          }
+        setBookedDates(excludedDates);
+        
+    }
+
     const handleSelect = async (e) => {
         const value = Array.from(e.target.selectedOptions, option => option.value)
         setBook(value)
         const book =  await axios.get(`/books/${books[0]}`)
+        handleBookedDates()
         setSelectBook(book.data)
         
     }
 
     console.log(selectBook)
+    console.log(bookedDates)
 
     async function handleApproval() {
         if (web3Provider) { 
@@ -260,7 +276,9 @@ const Reserve = ({setOpen, bookeeId}) =>{
                                             className='date'
                                             selected={_selectedDate}
                                             onChange={(date) => setSelectedDate(date)} 
-                                            minDate= {new Date()}      
+                                            minDate= {new Date()}
+                                            excludeDates={bookedDates}
+                                            placeholderText={"Click to select a date"}  
                                         />
                                     </span>
                                 </div>
