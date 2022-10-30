@@ -17,7 +17,7 @@ const List = () => {
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
 
-    const {data, loading, reFetch} = useFetch(`/bookees?region=${region}&genre=${genre}&min=${min || 0}&max=${max || 10000000}`)
+    const {data, loading, reFetch} = useFetch(`http://localhost:8000/api/bookees?region=${region}&genre=${genre}&min=${min || 0}&max=${max || 10000000}`)
 
     console.log(data)
 
