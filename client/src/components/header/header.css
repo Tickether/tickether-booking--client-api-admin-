@@ -46,6 +46,7 @@
     border: none;
     padding: 10px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .headerSearch{
@@ -81,7 +82,7 @@
 .headerSearchText{
     color: gray;
     cursor: pointer;
-
+    
 }
 
 .date{
@@ -89,7 +90,7 @@
     bottom: -13px;
     color: gray;
     cursor: pointer;
-    border: none;
-    outline: none;
     background: none;
+    max-width: 70px;
+    outline: none;
 }
