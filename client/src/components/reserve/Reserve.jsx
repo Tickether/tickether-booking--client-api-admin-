@@ -273,7 +273,6 @@ const Reserve = ({setOpen, bookeeId}) =>{
                                     <label>Date</label>
                                     <span>
                                         <DatePicker 
-                                            className='date'
                                             selected={_selectedDate}
                                             onChange={(date) => setSelectedDate(date)} 
                                             minDate= {new Date()}
