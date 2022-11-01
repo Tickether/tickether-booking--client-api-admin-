@@ -105,7 +105,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const handleSelect = async (e) => {
         const value = Array.from(e.target.selectedOptions, option => option.value)
         setBook(value)
-        const book =  await axios.get(`/books/${books[0]}`)
+        const book =  await axios.get(`http://localhost:8000/api//books/${books[0]}`)
         handleBookedDates()
         setSelectBook(book.data)
         
