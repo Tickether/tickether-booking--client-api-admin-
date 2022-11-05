@@ -286,7 +286,8 @@ const Reserve = ({setOpen, bookeeId}) =>{
                                             }}
                                             showTimeSelect
                                             timeIntervals={360}
-                                            dateFormat="MMMM d, yyyy h:mm aa"    
+                                            timeFormat="p"
+                                            dateFormat="Pp"    
                                             placeholderText={"Click to select a date & time"}  
                                         />
                                     </span>
