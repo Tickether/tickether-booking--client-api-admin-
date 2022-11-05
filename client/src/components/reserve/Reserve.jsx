@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { bookingInputs } from '../../formSource';
 import DatePicker from "react-datepicker";
+import isSameDay from 'date-fns/isSameDay';
 import { ethers, BigNumber } from "ethers";
 import Web3Modal from "web3modal";
 import { daiABI } from "./dai";
@@ -47,6 +48,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
 
     const [books, setBook] = useState([])
     const [bookedDates, setBookedDates] = useState([])
+    const [bookedDateTime, setBookedDateTime] = useState([])
     const [selectBook, setSelectBook] = useState({})
     const [info, setInfo] = useState({});
     const [isActive, setIsActive] = useState(false);
@@ -62,6 +64,8 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const {selectedDate} = useContext(SearchContext);
 
     const [_selectedDate, setSelectedDate] = useState(selectedDate);
+    const getExcludeTimesForDate = (date) => bookedDates.filter((time) => isSameDay(date, time));
+    const [excludeTimes, setExcludeTimes] = useState(getExcludeTimesForDate(_selectedDate));
     
     const navigate = useNavigate()
 
@@ -95,8 +99,11 @@ const Reserve = ({setOpen, bookeeId}) =>{
         const bookee =  await axios.get(`http://localhost:8000/api/bookees/find/${bookeeId}`)
         const bookedDates = bookee.data.showBookings;
         console.log(bookedDates)
+        setBookedDateTime(bookedDates)
         for (let i = 0; i < bookedDates.length; i++){
-            excludedDates.push(new Date(bookedDates[i]));
+            const date = new Date(bookedDates[i])
+
+            excludedDates.push(date);
           }
         setBookedDates(excludedDates);
         
@@ -181,11 +188,8 @@ const Reserve = ({setOpen, bookeeId}) =>{
                 // if null date 
                 if (_selectedDate){
                     // strip time and get Date()
-                    const onlyDate = _selectedDate.toISOString();
-                    const dateStamp = onlyDate.slice(0,10);
-                    console.log(onlyDate)
+                    const dateStamp = _selectedDate.getTime();
                     console.log(dateStamp)
-                    
                     //DB Data
                     const newBooking = {
                         ...info,
@@ -196,13 +200,22 @@ const Reserve = ({setOpen, bookeeId}) =>{
                         bookingDate: dateStamp
                     }
 
+                    let newBookedDates = []
+
+                    newBookedDates.push(bookedDateTime)
+                    newBookedDates.push(dateStamp)
+
+
+                    console.log(bookedDateTime)
+                    console.log(newBookedDates)
+
                     // if booking type
                     if (selectBook.bookType === 'Shows'){
                         axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {showBookings:dateStamp}) // unavailable Date to BookId
+                        axios.put(`/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookId
                     } else if (selectBook.bookType === 'Features') {
                         axios.post(`http://localhost:8000/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {featureBookings:dateStamp}) // unavailable Date to BookId
+                        axios.put(`/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookId
 
                     }
                 }
@@ -217,16 +230,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
             }
         }
     }
-
     
-    const isAvailable = (data) =>{
-         const isFound = data.unavailalableDates.some(date=>
-            date.includes(new Date(date).getTime())
-        );
-        return !isFound
-    }
-    
-
     return (
         <div className="reserve">            
             <div className="rContainer">
@@ -251,7 +255,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
                             ))}
                             </select>
                             <div className='bookInfo'>
-                                <div className='infoType'>{selectBook.bookType}</div>
+                                <div className='infoType'>ooking Type: {selectBook.bookType}</div>
                                 <span>Booking Fee: </span>
                                 <span>{selectBook.bookFee}</span>
                                 <div className="accordion-item">
@@ -276,8 +280,14 @@ const Reserve = ({setOpen, bookeeId}) =>{
                                             selected={_selectedDate}
                                             onChange={(date) => setSelectedDate(date)} 
                                             minDate= {new Date()}
-                                            excludeDates={bookedDates}
-                                            placeholderText={"Click to select a date"}  
+                                            excludeTimes={excludeTimes}
+                                            onSelect={(date) => {
+                                                setExcludeTimes(getExcludeTimesForDate(date));
+                                            }}
+                                            showTimeSelect
+                                            timeIntervals={360}
+                                            dateFormat="MMMM d, yyyy h:mm aa"    
+                                            placeholderText={"Click to select a date & time"}  
                                         />
                                     </span>
                                 </div>

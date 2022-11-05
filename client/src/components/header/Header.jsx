@@ -11,7 +11,7 @@ import { SearchContext } from '../../context/SearchContext';
 
 const Header = ({type}) => {
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
     const [genre, setGenre] = useState("");
     const [region, setRegion] = useState("");
     
@@ -83,7 +83,12 @@ const Header = ({type}) => {
                                         selected={selectedDate}
                                         onChange={(date) => setSelectedDate(date)} 
                                         minDate= {new Date()}
-                                        placeholderText={"Click to select a date"}  
+                                        showTimeSelect
+                                        timeIntervals={360}
+                                        timeFormat="p"
+                                        dateFormat="Pp"    
+                                        placeholderText="Select date & time"
+
                                     />
                                 </span>
                             </div>

@@ -22,10 +22,6 @@ const BookingSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    start: {
-        type: Number,
-        required: true
-    },
     checkIn: {
         type: Boolean,
         default: false
