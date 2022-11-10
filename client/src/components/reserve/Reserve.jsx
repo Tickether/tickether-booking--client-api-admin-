@@ -53,12 +53,6 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const [info, setInfo] = useState({});
     const [isActive, setIsActive] = useState(false);
 
-    /*
-    const [isConfirming, setConfirming] = useState (Boolean(0));
-    const [isSent, setSent] = useState (Boolean(0));
-    const [isMinted, setMinted] = useState(Boolean(0));
-    */
-
     const { data, loading } = useFetch(`http://localhost:8000/api/bookees/books/${bookeeId}`)
 
     const {selectedDate} = useContext(SearchContext);
@@ -205,7 +199,6 @@ const Reserve = ({setOpen, bookeeId}) =>{
                     newBookedDates.push(bookedDateTime)
                     newBookedDates.push(dateStamp)
 
-
                     console.log(bookedDateTime)
                     console.log(newBookedDates)
 
@@ -219,10 +212,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
 
                     }
                 }
-                
-
                 // end if wrapper
-                
                 setOpen(false)
                 navigate(`/success/${bookeeId}`)
             } catch(err) {
@@ -255,7 +245,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
                             ))}
                             </select>
                             <div className='bookInfo'>
-                                <div className='infoType'>ooking Type: {selectBook.bookType}</div>
+                                <div className='infoType'>Booking Type: {selectBook.bookType}</div>
                                 <span>Booking Fee: </span>
                                 <span>{selectBook.bookFee}</span>
                                 <div className="accordion-item">

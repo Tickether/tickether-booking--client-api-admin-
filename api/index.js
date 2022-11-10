@@ -48,8 +48,8 @@ app.use((err, req, res, next) => {
         stack: err.stack,
     });
 });
-
-app.listen(8000, ()=>{
+const port = process.env.port || 8000;
+app.listen(port, ()=>{
     connect();
     console.log('Connected to backend!');
 });
