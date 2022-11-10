@@ -15,7 +15,7 @@ const ListRegion = () => {
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
 
-    const {data, loading, reFetch} = useFetch(`http://localhost:8000/api/bookees?region=${region}&min=${min || 0}&max=${max || 10000000}`)
+    const {data, loading, reFetch} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees?region=${region}&min=${min || 0}&max=${max || 10000000}`)
 
     console.log(_region)
     console.log(data)

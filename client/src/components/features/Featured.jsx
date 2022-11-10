@@ -5,7 +5,7 @@ import "./featured.css";
 
 const Featured = () => {
 
-    const {data, loading} = useFetch("http://localhost:8000/api/bookees/countByGenre?genres=Afrobeats,Pop,HipHop")
+    const {data, loading} = useFetch("http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/countByGenre?genres=Afrobeats,Pop,HipHop")
 
     //console.log(data)
 

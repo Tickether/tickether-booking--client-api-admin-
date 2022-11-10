@@ -6,7 +6,7 @@ import List from '../../components/table/Table';
 import useFetch from '../../hooks/useFetch';
 
 const Single = () => { 
-  const {data, loading, error} = useFetch(`http://localhost:8000/api/bookee/`)
+  const {data, loading, error} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookee/`)
 
   return (
     <div className="single">

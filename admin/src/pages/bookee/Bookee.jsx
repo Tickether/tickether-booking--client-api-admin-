@@ -15,7 +15,7 @@ const Bookee = () => {
   const bookeeid = booker.bookee[0]
 
   // to get info for this page
-  const {data, loading, error} = useFetch(`http://localhost:8000/api/bookees/find/${bookeeid}`)
+  const {data, loading, error} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/find/${bookeeid}`)
 
   console.log(data)
   return (

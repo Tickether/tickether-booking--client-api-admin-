@@ -46,7 +46,7 @@ const NewBookee = () => {
       }
 
       //console.log(newBookee)
-      const bookee = await axios.post(`http://localhost:8000/api/bookees/${bookerId}`, newBookee)
+      const bookee = await axios.post(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/${bookerId}`, newBookee)
 
       console.log(bookee)
 

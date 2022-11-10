@@ -27,7 +27,7 @@ const Bookee = () => {
 
     const[openModal, setOpenModal] = useState(false)
 
-    const {data, loading } = useFetch(`http://localhost:8000/api/bookees/find/${id}`)
+    const {data, loading } = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/find/${id}`)
 
     const {selectedDate} = useContext(SearchContext);
 

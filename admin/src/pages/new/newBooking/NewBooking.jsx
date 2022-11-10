@@ -15,7 +15,7 @@ const NewBooking = () => {
   const [info, setInfo] = useState({});
   const [books, setBook] = useState([])
   
-  const {data, loading, error} = useFetch(`http://localhost:8000/api/bookees/books/${bookeeid}`);
+  const {data, loading, error} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/books/${bookeeid}`);
   console.log(data)
 
 
@@ -51,9 +51,9 @@ const NewBooking = () => {
 
 
       console.log(newBooking)
-      const booking = await axios.post(`http://localhost:8000/api/bookings/${books[0]}/${bookerid}/${bookeeid}`, newBooking)
-      //await axios.put(`http://localhost:8000/api/bookees/${bookeeid}`, showDate)
-      //await axios.put(`http://localhost:8000/api/bookees/${bookeeid}`, featureDate)
+      const booking = await axios.post(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookings/${books[0]}/${bookerid}/${bookeeid}`, newBooking)
+      //await axios.put(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/${bookeeid}`, showDate)
+      //await axios.put(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/${bookeeid}`, featureDate)
       console.log(booking)
 
     } catch (err) {

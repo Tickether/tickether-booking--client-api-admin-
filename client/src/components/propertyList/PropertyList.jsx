@@ -4,7 +4,7 @@ import "./propertyList.css";
 
 const PropertyList = () => {
 
-    const {data, loading} = useFetch("http://localhost:8000/api/bookees/countByRegion")
+    const {data, loading} = useFetch("http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/countByRegion")
 
     const images = [
         "https://bafybeihdcriwfoqtvbjyd5sgrqcr3aivfjfbk2adynzytoyvukgcgp6p4y.ipfs.nftstorage.link/africa.jpg",

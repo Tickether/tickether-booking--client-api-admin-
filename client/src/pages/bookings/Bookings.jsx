@@ -13,7 +13,7 @@ const Bookings = () => {
     const user = JSON.parse(localStorage.getItem('user'))
 
     const [list, setList] = useState([]);
-    const {data} = useFetch(`http://localhost:8000/api/bookers/bookings/${user._id}`)
+    const {data} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookers/bookings/${user._id}`)
 
     console.log(data)
 
