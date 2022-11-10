@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 
 const FeaturedMusicians = () => {
 
-    const {data, loading} = useFetch("http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees?featured=true&limit=4&min=1000&max=21000")
+    const {data, loading} = useFetch("https://api.tickether.io/api/bookees?featured=true&limit=4&min=1000&max=21000")
  
     return (
         <div className="fp">

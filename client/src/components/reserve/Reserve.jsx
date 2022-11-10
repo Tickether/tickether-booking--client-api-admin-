@@ -53,7 +53,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const [info, setInfo] = useState({});
     const [isActive, setIsActive] = useState(false);
 
-    const { data, loading } = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/books/${bookeeId}`)
+    const { data, loading } = useFetch(`https://api.tickether.io/api/bookees/books/${bookeeId}`)
 
     const {selectedDate} = useContext(SearchContext);
 
@@ -90,7 +90,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
 
     const handleBookedDates = async () => {
         let excludedDates = []
-        const bookee =  await axios.get(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/find/${bookeeId}`)
+        const bookee =  await axios.get(`https://api.tickether.io/api/bookees/find/${bookeeId}`)
         const bookedDates = bookee.data.showBookings;
         console.log(bookedDates)
         setBookedDateTime(bookedDates)
@@ -106,7 +106,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const handleSelect = async (e) => {
         const value = Array.from(e.target.selectedOptions, option => option.value)
         setBook(value)
-        const book =  await axios.get(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/books/${books[0]}`)
+        const book =  await axios.get(`https://api.tickether.io/api/books/${books[0]}`)
         handleBookedDates()
         setSelectBook(book.data)
         
@@ -204,10 +204,10 @@ const Reserve = ({setOpen, bookeeId}) =>{
 
                     // if booking type
                     if (selectBook.bookType === 'Shows'){
-                        axios.post(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
+                        axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
                         axios.put(`/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookId
                     } else if (selectBook.bookType === 'Features') {
-                        axios.post(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
+                        axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
                         axios.put(`/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookId
 
                     }

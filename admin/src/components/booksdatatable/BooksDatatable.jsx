@@ -14,7 +14,7 @@ const BooksDatatable = () => {
     const bookeeid = booker.bookee[0]
 
     const [list, setList] = useState([]);
-    const {data, loading, error} = useFetch(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/bookees/books/${bookeeid}`)
+    const {data, loading, error} = useFetch(`https://api.tickether.io/api/bookees/books/${bookeeid}`)
 
     useEffect(()=>{
         setList(data)
@@ -23,7 +23,7 @@ const BooksDatatable = () => {
     console.log(data)
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/books/${id}`)
+            await axios.delete(`https://api.tickether.io/api/books/${id}`)
             setList(list.filter((item)=>item._id !== id ))
         } catch (err) {}
         

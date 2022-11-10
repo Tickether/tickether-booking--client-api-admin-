@@ -31,7 +31,7 @@ const NewBook = () => {
 
       console.log(newBook)
 
-      await axios.post(`http://tickether-env.eba-38hrijp2.ap-northeast-1.elasticbeanstalk.com/api/books/${bookeeid}`, newBook)
+      await axios.post(`https://api.tickether.io/api/books/${bookeeid}`, newBook)
 
     } catch (err) {
       console.log(err)
