@@ -106,7 +106,8 @@ const Reserve = ({setOpen, bookeeId}) =>{
     const handleSelect = async (e) => {
         const value = Array.from(e.target.selectedOptions, option => option.value)
         setBook(value)
-        const book =  await axios.get(`https://api.tickether.io/api/books/${books[0]}`)
+        const _book = axios.get(`https://api.tickether.io/api/books/${books[0]}`)
+        const book = await _book
         handleBookedDates()
         setSelectBook(book.data)
         
@@ -239,10 +240,11 @@ const Reserve = ({setOpen, bookeeId}) =>{
                     <div className="books">
                         <div className="selectBooks">
                             <label htmlFor="">Select Booking:</label>
-                            <select id="books" onChange={handleSelect}>
-                            {loading ? "loading" : data && data.map(book=>(
-                                <option key={book._id} value={book._id}>{book.bookName}</option>
-                            ))}
+                            <select defaultValue={'DEFAULT'} id="books" onChange={handleSelect}>
+                                <option value="DEFAULT" disabled >Choose book ...</option>
+                                {loading ? "loading" : data && data.map(book=>(
+                                    <option key={book._id} value={book._id}>{book.bookName}</option>
+                                ))}
                             </select>
                             <div className='bookInfo'>
                                 <div className='infoType'>Booking Type: {selectBook.bookType}</div>
