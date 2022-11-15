@@ -240,7 +240,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
                         <div className="selectBooks">
                             <label htmlFor="">Select Booking:</label>
                             <select defaultValue={'DEFAULT'} id="books" onChange={handleSelect}>
-                                <option value="DEFAULT" disabled >Choose book ...</option>
+                                <option value="DEFAULT" disabled >Please Choose ...</option>
                                 {loading ? "loading" : data && data.map(item=>(
                                     <option key={item._id} value={item._id}>{item.bookName}</option>
                                 ))}
@@ -261,7 +261,7 @@ const Reserve = ({setOpen, bookeeId}) =>{
                                 {bookingInputs.map((input) => (
                                     <div className="formInput" key={input.id}>
                                     <label>{input.label}</label>
-                                    <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
+                                    <input id={input.id} onChange={handleChange} required type={input.type} placeholder={input.placeholder} />
                                     </div>
                                 ))}
                                 <div className="formInput">

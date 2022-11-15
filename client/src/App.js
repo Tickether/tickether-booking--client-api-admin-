@@ -7,6 +7,7 @@ import Success from './pages/success/Success';
 import Bookings from './pages/bookings/Bookings';
 import ListGenre from './pages/listGenre/ListGenre';
 import ListRegion from './pages/listRegion/ListRegion';
+import Signup from './pages/signup/Signup';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path = '/bookees' element={<List/>} />
         <Route path = '/bookees/:id' element={<Bookee/>} />
         <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<Signup/>}/>
         <Route path='/success/:id' element={<Success/>}/>
         <Route path='/bookings' element={<Bookings/>}/>
         <Route path='/bookees/region/:id' element={<ListRegion/>}/>
