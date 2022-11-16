@@ -15,7 +15,7 @@ const Signup = () => {
 
     const [error, setError] = useState()
     
-    const [msg, setMsg] = useState()
+    const [msg, setMsg] = useState('')
 
     const [loading, setLoading] = useState(false)
     
@@ -31,7 +31,7 @@ const Signup = () => {
         setLoading(true)
         try{
             const res = await axios.post('https://api.tickether.io/api/auth/register', credentials);
-            setMsg(res)
+            setMsg(res.data)
             console.log(res)
         } catch(err) {
             setError(err.response.data.message)
