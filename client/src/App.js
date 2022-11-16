@@ -8,6 +8,7 @@ import Bookings from './pages/bookings/Bookings';
 import ListGenre from './pages/listGenre/ListGenre';
 import ListRegion from './pages/listRegion/ListRegion';
 import Signup from './pages/signup/Signup';
+import EmailVerify from './pages/emailVerify/EmailVerify';
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
         <Route path = '/bookees/:id' element={<Bookee/>} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/success/:id' element={<Success/>}/>
+        <Route path='/bookers/:id/verify:token' element={<EmailVerify/>}/>
         <Route path='/bookings' element={<Bookings/>}/>
+        <Route path='/success/:id' element={<Success/>}/>
         <Route path='/bookees/region/:id' element={<ListRegion/>}/>
         <Route path='/bookees/genre/:id' element={<ListGenre/>}/>
       </Routes>

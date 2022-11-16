@@ -1,7 +1,7 @@
 import './signup.css'
 import { useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     
@@ -15,9 +15,11 @@ const Signup = () => {
 
     const [error, setError] = useState()
     
+    const [msg, setMsg] = useState()
+
     const [loading, setLoading] = useState(false)
     
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     
 
     const handleChange = (e) => {
@@ -29,7 +31,7 @@ const Signup = () => {
         setLoading(true)
         try{
             const res = await axios.post('https://api.tickether.io/api/auth/register', credentials);
-            navigate('/')
+            setMsg(res)
             console.log(res)
         } catch(err) {
             setError(err.response.data.message)
@@ -85,6 +87,7 @@ const Signup = () => {
                 />
                 <button disabled={loading} onClick={handleCLick} className="sButton">Signup</button>
                 {error && <span>{error}</span>}
+                {msg && <span>{msg}</span>}
             </div>
         </div>
     )
