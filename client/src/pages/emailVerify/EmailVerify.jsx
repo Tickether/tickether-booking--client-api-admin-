@@ -1,5 +1,5 @@
 import './emailVerify.css'
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const EmailVerify = () => {
     },[param])
 
     return(
-        <Fragment>
+        <div>
             {validUrl ? (
                 <div>
                     <h1>Email Verified Successfully</h1>
@@ -38,7 +38,7 @@ const EmailVerify = () => {
                 </div>
             )
             }
-        </Fragment>    
+        </div>    
     )
 }
 

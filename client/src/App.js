@@ -19,7 +19,7 @@ function App() {
         <Route path = '/bookees/:id' element={<Bookee/>} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/bookers/:id/verify:token' element={<EmailVerify/>}/>
+        <Route path='/bookers/:id/verify/:token' element={<EmailVerify/>}/>
         <Route path='/bookings' element={<Bookings/>}/>
         <Route path='/success/:id' element={<Success/>}/>
         <Route path='/bookees/region/:id' element={<ListRegion/>}/>
