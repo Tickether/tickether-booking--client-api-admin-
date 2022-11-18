@@ -1,12 +1,15 @@
 import './navbar.scss';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext'
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+//import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import { DarkModeContext } from '../../context/darkModeContext';
 
 
@@ -14,7 +17,21 @@ import { DarkModeContext } from '../../context/darkModeContext';
 
 const Navbar = () => {
 
-  const {dispatch} = useContext(DarkModeContext)
+  const {dispatchs} = useContext(DarkModeContext)
+  
+  const { dispatch} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleLogout = async e => {
+        e.preventDefault()
+        try{
+            dispatch({type:'LOGOUT'});
+            navigate('/login')
+        } catch(err) {
+            dispatch({type:'LOGOUT', payload:err.response.data})
+        }
+    };
 
   return (
     <div className="navbar">
@@ -30,7 +47,7 @@ const Navbar = () => {
             English
           </div>
           <div className="item">
-            <DarkModeOutlinedIcon className='icon' onClick={()=> dispatch({type: 'TOGGLE'})}/>
+            <DarkModeOutlinedIcon className='icon' onClick={()=> dispatchs({type: 'TOGGLE'})}/>
           </div>
           <div className="item">
             <FullscreenExitOutlinedIcon className='icon'/>
@@ -44,7 +61,7 @@ const Navbar = () => {
             <div className="counter">2</div>
           </div>
           <div className="item">
-            <ListOutlinedIcon className='icon'/>
+            <LogoutOutlinedIcon onClick={handleLogout} className='icon'/>
           </div>
           <div className="item">
             <img 

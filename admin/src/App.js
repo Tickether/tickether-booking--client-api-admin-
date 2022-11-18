@@ -15,6 +15,8 @@ import Bookee from './pages/bookee/Bookee';
 import NewBookee from './pages/new/newBookee/NewBookee';
 import Bookings from './pages/bookings/Bookings';
 import Books from './pages/books/Books';
+import Signup from './pages/signup/Signup';
+import EmailVerify from './pages/emailVerify/EmailVerify';
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="login" element={<Login/>} />
+            <Route path="signup" element={<Signup/>}/>
+            <Route path='/bookers/:id/verify/:token' element={<EmailVerify/>}/>
             <Route 
               index 
               element={ 

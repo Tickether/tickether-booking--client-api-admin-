@@ -2,7 +2,7 @@ import './login.scss';
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -57,6 +57,7 @@ const Login = () => {
           className="lInput" 
         />
         <button disabled={loading} onClick={handleCLick} className="lButton">Login</button>
+        <p>Dont have an account? <Link to='/signup'>Sign Up</Link></p>
         {error && <span>{error.message}</span>}
       </div>
     </div>
