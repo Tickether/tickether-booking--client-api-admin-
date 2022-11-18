@@ -20,8 +20,14 @@ const Navbar = () => {
                 )   :   (
                     <>
                         <div className="navItems">
-                            <button className="Navbutton">Register</button>
-                            <button className="Navbutton">Login</button>
+                            <Link to='/signup'>
+                                <button className="Navbutton">Register</button>
+                            </Link>
+                            
+                            <Link to='/login'>
+                                <button className="Navbutton">Login</button>
+                            </Link>
+                            
                         </div>
                     </>
                 )}
