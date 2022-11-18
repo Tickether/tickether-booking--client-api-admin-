@@ -1,11 +1,26 @@
 import "./navbar.css";
 import{Link} from "react-router-dom"
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, dispatch} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleLogout = async e => {
+        e.preventDefault()
+        //dispatch({type:'LOGIN_SUCCESS'})
+        try{
+            dispatch({type:'LOGOUT'});
+            navigate('/')
+        } catch(err) {
+            dispatch({type:'LOGOUT', payload:err.response.data})
+        }
+    };
 
     console.log(user)
 
@@ -16,7 +31,12 @@ const Navbar = () => {
                     <span className='logo'>tickether</span>
                 </Link>
                 {user ? (
-                    (user.firstName)
+                    (
+                    <div>
+                        {user.firstName}
+                        <button onClick={handleLogout}>LOGOUT</button>
+                    </div>
+                    )
                 )   :   (
                     <>
                         <div className="navItems">

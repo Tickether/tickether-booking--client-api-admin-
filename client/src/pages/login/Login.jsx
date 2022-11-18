@@ -2,7 +2,7 @@ import './login.css'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -18,7 +18,7 @@ const Login = () => {
         setCredentials((prev)=>({...prev, [e.target.id]:e.target.value}))
     };
 
-    const handleCLick = async e => {
+    const handleClick = async e => {
         e.preventDefault()
         dispatch({type:'LOGIN_START'})
         try{
@@ -48,7 +48,8 @@ const Login = () => {
                     onChange={handleChange} 
                     className="lInput" 
                 />
-                <button disabled={loading} onClick={handleCLick} className="lButton">Login</button>
+                <button disabled={loading} onClick={handleClick} className="lButton">Login</button>
+                <p>Dont have an account? <Link to='/signup'>Sign Up</Link></p>
                 {error && <span>{error.message}</span>}
             </div>
         </div>

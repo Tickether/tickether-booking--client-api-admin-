@@ -1,6 +1,7 @@
 import './signup.css'
 import { useState } from 'react'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -86,6 +87,7 @@ const Signup = () => {
                     className="sInput" 
                 />
                 <button disabled={loading} onClick={handleCLick} className="sButton">Signup</button>
+                <p>Already have an account? <Link to='/login'>Login</Link></p>
                 {error && <span>{error}</span>}
                 {msg && <span>{msg}</span>}
             </div>
