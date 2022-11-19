@@ -1,8 +1,9 @@
 import './sidebar.scss';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext'
 import DashboardIcon  from '@mui/icons-material/Dashboard';
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
@@ -16,7 +17,21 @@ import { DarkModeContext } from '../../context/darkModeContext';
 
 
 const Sidebar = () => {
-    const { dispatch } = useContext(DarkModeContext)
+    const { dispatchs } = useContext(DarkModeContext)
+
+    const { dispatch} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleLogout = async e => {
+        e.preventDefault()
+        try{
+            dispatch({type:'LOGOUT'});
+            navigate('/login')
+        } catch(err) {
+            dispatch({type:'LOGOUT', payload:err.response.data})
+        }
+    };
 
     return (
       <div className="sidebar">
@@ -52,12 +67,6 @@ const Sidebar = () => {
                     <li>
                         <CreditCardIcon className='icon'/>
                         <span>Bookings</span>
-                    </li>
-                </Link>
-                <Link  to='/messages' style={{ textDecoration:'none' }}>
-                    <li>
-                        <LocalShippingIcon className='icon'/>
-                        <span>Messages</span>
                     </li>
                 </Link>
                 <p className="title">USEFUL</p>
@@ -100,7 +109,7 @@ const Sidebar = () => {
                         <span>Profile</span>
                     </li>
                 </Link>
-                <Link style={{ textDecoration:'none' }}>
+                <Link onClick={handleLogout} style={{ textDecoration:'none' }}>
                     <li>
                         <ExitToAppIcon className='icon'/>
                         <span>Logout</span>
@@ -109,8 +118,8 @@ const Sidebar = () => {
             </ul>
         </div>
         <div className="bottom">
-            <div className="colorOption" onClick={()=> dispatch({type: 'LIGHT'})}></div>
-            <div className="colorOption" onClick={()=> dispatch({type: 'DARK'})}></div>
+            <div className="colorOption" onClick={()=> dispatchs({type: 'LIGHT'})}></div>
+            <div className="colorOption" onClick={()=> dispatchs({type: 'DARK'})}></div>
         </div>
       </div>
     );
