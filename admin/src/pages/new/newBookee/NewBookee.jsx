@@ -5,9 +5,12 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 import { useState } from 'react';
 import { bookeeInputs } from '../../../formSource';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const NewBookee = () => {
+
+  const navigate = useNavigate();
   
   const[files, setFiles] = useState('');
   const[info, setInfo] = useState({});
@@ -49,7 +52,7 @@ const NewBookee = () => {
       const bookee = await axios.post(`https://api.tickether.io/api/bookees/${bookerId}`, newBookee)
 
       console.log(bookee)
-
+      navigate('/bookee')
     } catch (err) {
       console.log(err)
     }

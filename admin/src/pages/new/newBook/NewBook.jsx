@@ -4,9 +4,11 @@ import Sidebar from '../../../components/sidebar/Sidebar';
 import { useState } from 'react';
 import axios from 'axios';
 import { bookInputs } from "../../../formSource";
-
+import { useNavigate } from 'react-router-dom';
 
 const NewBook = () => {
+
+  const navigate = useNavigate();
   
   // get booker/UID from local storage 
   const booker = JSON.parse(localStorage.getItem('user'))
@@ -32,7 +34,8 @@ const NewBook = () => {
       console.log(newBook)
 
       await axios.post(`https://api.tickether.io/api/books/${bookeeid}`, newBook)
-
+      
+      navigate('/books')
     } catch (err) {
       console.log(err)
     }

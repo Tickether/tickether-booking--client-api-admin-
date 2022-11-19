@@ -21,17 +21,17 @@ const Navbar = () => {
   
   const { dispatch} = useContext(AuthContext);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleLogout = async e => {
-        e.preventDefault()
-        try{
-            dispatch({type:'LOGOUT'});
-            navigate('/login')
-        } catch(err) {
-            dispatch({type:'LOGOUT', payload:err.response.data})
-        }
-    };
+  const handleLogout = async e => {
+      e.preventDefault()
+      try{
+          dispatch({type:'LOGOUT'});
+          navigate('/login')
+      } catch(err) {
+          dispatch({type:'LOGOUT', payload:err.response.data})
+      }
+  };
 
   return (
     <div className="navbar">

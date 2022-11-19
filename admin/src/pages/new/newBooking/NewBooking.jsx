@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { bookingInputs } from '../../../formSource';
 import axios from 'axios';
 import useFetch from '../../../hooks/useFetch';
+import { useNavigate } from 'react-router-dom';
 
 
 const NewBooking = () => {
@@ -15,8 +16,10 @@ const NewBooking = () => {
   const [info, setInfo] = useState({});
   const [books, setBook] = useState([])
   
-  const {data, loading, error} = useFetch(`https://api.tickether.io/api/bookees/books/${bookeeid}`);
+  const {data, loading} = useFetch(`https://api.tickether.io/api/bookees/books/${bookeeid}`);
   console.log(data)
+
+  const navigate = useNavigate();
 
 
   const handleChange = (e) => {
@@ -55,6 +58,7 @@ const NewBooking = () => {
       //await axios.put(`https://api.tickether.io/api/bookees/${bookeeid}`, showDate)
       //await axios.put(`https://api.tickether.io/api/bookees/${bookeeid}`, featureDate)
       console.log(booking)
+      navigate('/bookee')
 
     } catch (err) {
       console.log(err)
