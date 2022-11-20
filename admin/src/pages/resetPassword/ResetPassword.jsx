@@ -9,6 +9,7 @@ const ResetPassword = () => {
     password: undefined,
   });
   const [validUrl, setValidUrl] = useState(false)
+  const [response, setRes] = useState()
 
   const param = useParams()
 
@@ -29,16 +30,17 @@ const ResetPassword = () => {
           try {
               const res = axios.get(`https://api.tickether.io/api/bookers/${param.id}/resetpassword/${param.token}`)
               console.log(res);
-              if (res.status === 200) {
-                setValidUrl(true)
-              }
+              setRes(res)
           } catch (err) {
               console.log(err)
-              setValidUrl(false)
           }
       }
       verifyEmailUrl();
   },[param])
+
+  if (response.status === 200) {
+    setValidUrl(true)
+  }
 
   
   const handleCLick = async e => {
