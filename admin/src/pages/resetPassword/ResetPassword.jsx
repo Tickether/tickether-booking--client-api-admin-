@@ -55,7 +55,7 @@ const ResetPassword = () => {
   return(
     <div className="resetPassword"> 
       <div className="rpContainer"> 
-        {validUrl ? (
+        {!validUrl ? (
                 <div>
                     <input 
                       type="password" 
