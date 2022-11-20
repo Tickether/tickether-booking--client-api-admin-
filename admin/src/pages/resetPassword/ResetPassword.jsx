@@ -21,7 +21,7 @@ const ResetPassword = () => {
   const handleCLick = async e => {
     e.preventDefault() 
     try{
-      const res = await axios.post(`https://api.tickether.io/api/bookers/${param.id}/forgotpassword/${param.token}`, credentials);
+      const res = await axios.get(`https://api.tickether.io/api/bookers/${param.id}/forgotpassword/${param.token}`, credentials);
       console.log(res)
       navigate('/login')
     } catch(err) {
