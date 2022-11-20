@@ -27,7 +27,7 @@ const ResetPassword = () => {
   useEffect(() => {
       const verifyEmailUrl = async () => {
           try {
-              const res = axios.get(`https://api.tickether.io/api/bookers/${param.id}/verify/${param.token}`)
+              const res = axios.get(`https://api.tickether.io/api/bookers/${param.id}/resetpassword/${param.token}`)
               console.log(res);
               setValidUrl(true)
           } catch (err) {
