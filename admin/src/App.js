@@ -44,7 +44,7 @@ function App() {
             <Route path="signup" element={<Signup/>}/>
             <Route path='/bookers/:id/verify/:token' element={<EmailVerify/>}/>
             <Route path='/reset' element={<Reset/>}/>
-            <Route path='/bookers/:id/forgotpassword/:token' element={<ResetPassword/>}/>
+            <Route path='/bookers/:id/resetpassword/:token' element={<ResetPassword/>}/>
             <Route 
               index 
               element={ 
