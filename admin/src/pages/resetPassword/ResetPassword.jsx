@@ -29,7 +29,9 @@ const ResetPassword = () => {
           try {
               const res = axios.get(`https://api.tickether.io/api/bookers/${param.id}/resetpassword/${param.token}`)
               console.log(res);
-              setValidUrl(true)
+              if (res.status === 200) {
+                setValidUrl(true)
+              }
           } catch (err) {
               console.log(err)
               setValidUrl(false)
@@ -55,7 +57,7 @@ const ResetPassword = () => {
   return(
     <div className="resetPassword"> 
       <div className="rpContainer"> 
-        {!validUrl ? (
+        {validUrl ? (
                 <div>
                     <input 
                       type="password" 
