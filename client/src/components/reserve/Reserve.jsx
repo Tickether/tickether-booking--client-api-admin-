@@ -218,10 +218,10 @@ const Reserve = ({setOpen, bookeeId}) =>{
                     // if booking type
                     if (selectBook.bookType === 'Shows'){
                         axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookeeId
+                        axios.put(`https://api.tickether.io/api/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookeeId
                     } else if (selectBook.bookType === 'Features') {
                         axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookeeId
+                        axios.put(`https://api.tickether.io/api/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookeeId
 
                     }
                 }

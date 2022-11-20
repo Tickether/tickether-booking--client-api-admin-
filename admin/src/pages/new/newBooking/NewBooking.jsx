@@ -139,7 +139,8 @@ const NewBooking = () => {
                 
                 <div className="selectBooks">
                   <label htmlFor="">books</label>
-                  <select id="books" onChange={handleSelect}>
+                  <select defaultValue={'DEFAULT'} id="books" onChange={handleSelect}>
+                    <option value="DEFAULT" disabled >Please Choose Booking ...</option>
                     {loading ? "loading" : data && data.map(book=>(
                       <option key={book._id} value={book._id}>{book.bookName}</option>
                     ))}

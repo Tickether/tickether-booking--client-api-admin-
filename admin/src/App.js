@@ -17,6 +17,8 @@ import Bookings from './pages/bookings/Bookings';
 import Books from './pages/books/Books';
 import Signup from './pages/signup/Signup';
 import EmailVerify from './pages/emailVerify/EmailVerify';
+import Reset from './pages/reset/Reset';
+import ResetPassword from './pages/resetPassword/ResetPassword';
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
             <Route path="login" element={<Login/>} />
             <Route path="signup" element={<Signup/>}/>
             <Route path='/bookers/:id/verify/:token' element={<EmailVerify/>}/>
+            <Route path='/reset' element={<Reset/>}/>
+            <Route path='/bookers/:id/forgotpassword/:token' element={<ResetPassword/>}/>
             <Route 
               index 
               element={ 
