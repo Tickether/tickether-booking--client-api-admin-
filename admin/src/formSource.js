@@ -27,12 +27,6 @@ export const bookInputs = [
   
 export const bookingInputs = [
   {
-    id: "bookingDate",
-    label: "Date",
-    type: "date",
-    placeholder: "Apple Macbook Pro",
-  },
-  {
     id: "city",
     label: "City",
     type: "text",

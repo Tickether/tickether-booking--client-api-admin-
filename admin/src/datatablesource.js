@@ -1,3 +1,4 @@
+
 export const bookColumns = [
     { field: "_id", headerName: "ID", width: 70 },
     {
@@ -26,31 +27,30 @@ export const bookColumns = [
   ];
    
 export const bookingColumns = [
-    { field: "_id", headerName: "ID", width: 70 },
     {
-        field: "booker",
+        field: "bookName",
         headerName: "Name",
-        width: 230,
-    },
-    {
-        field: "book",
-        headerName: "Type",
-        width: 230,
+        width: 330,
     },
     {
         field: "bookingDate",
-        headerName: "Fee",
-        width: 100,
+        headerName: "Date",
+        width: 230,
     },
     {
         field: "city",
-        headerName: "Address",
-        width: 160,
+        headerName: "City",
+        width: 140,
     },
     {
         field: "country",
-        headerName: "Status",
-        width: 160,
+        headerName: "Country",
+        width: 140,
+    },
+    {
+        field: "offBook",
+        headerName: "Off-Site Booking",
+        width: 140,
     },
 ];
   

@@ -59,15 +59,15 @@ const NewBookee = () => {
   }
 
   return (
-    <div className="new">
+    <div className="newbookee">
       <Sidebar/>
-      <div className="newContainer">
+      <div className="newbookeeContainer">
         <Navbar/>
-        <div className="top">
+        <div className="topbookee">
           <h1>Setup Booking Profile</h1>
         </div>
-        <div className="bottom">
-          <div className="left">
+        <div className="bottombookee">
+          <div className="leftbookee">
             <img 
               src={
                 files
@@ -77,11 +77,11 @@ const NewBookee = () => {
               alt="" 
             />
           </div>
-          <div className="right">
+          <div className="rightbookee">
             <form>
-            <div className="formInput">
+            <div className="formInpubookeet">
                 <label htmlFor='file'>
-                  Image: <DriveFolderUploadOutlinedIcon className='icon'/>
+                  Image: <DriveFolderUploadOutlinedIcon className='iconbookee'/>
                 </label>
                 <input 
                   type="file"  
@@ -92,7 +92,7 @@ const NewBookee = () => {
                 />
               </div>
               {bookeeInputs.map((input) => (
-                <div className="formInput" key={input.id}>
+                <div className="formInputbookee" key={input.id}>
                   <label>{input.label}</label>
                   <input 
                     id={input.id} 
@@ -102,7 +102,7 @@ const NewBookee = () => {
                   />
                 </div>
               ))}
-              <button onClick={handleClick} >Send</button>
+              <button className='btnbookee' onClick={handleClick} >Send</button>
             </form>
           </div>
         </div>

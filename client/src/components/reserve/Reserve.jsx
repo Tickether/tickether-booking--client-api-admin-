@@ -196,8 +196,21 @@ const Reserve = ({setOpen, bookeeId}) =>{
 
                     let newBookedDates = []
 
-                    newBookedDates.push(bookedDateTime)
+                    if (bookedDateTime.length === 0 ) {
+
+                        newBookedDates.push(dateStamp)
+
+                    } else {
+                    
+                        for (let i = 0; i < bookedDateTime.length; i++ ) {
+                        
+                        const gettingDate = new Date(bookedDateTime[i]) ;
+                        const gettingTime = gettingDate.getTime();
+                        newBookedDates.push(gettingTime)
+                    
+                    }
                     newBookedDates.push(dateStamp)
+                    }
 
                     console.log(bookedDateTime)
                     console.log(newBookedDates)
@@ -205,10 +218,10 @@ const Reserve = ({setOpen, bookeeId}) =>{
                     // if booking type
                     if (selectBook.bookType === 'Shows'){
                         axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookId
+                        axios.put(`/bookees/${bookeeId}`, {showBookings: newBookedDates}) // unavailable Date to BookeeId
                     } else if (selectBook.bookType === 'Features') {
                         axios.post(`https://api.tickether.io/api/bookings/${selectBook._id}/${user._id}/${bookeeId}`, newBooking) // Bookings information from form
-                        axios.put(`/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookId
+                        axios.put(`/bookees/${bookeeId}`, {featureBookings:newBookedDates}) // unavailable Date to BookeeId
 
                     }
                 }

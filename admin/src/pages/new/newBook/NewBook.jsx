@@ -42,23 +42,23 @@ const NewBook = () => {
   }
 
   return (
-    <div className="new">
+    <div className="newbook">
       <Sidebar/>
-      <div className="newContainer">
+      <div className="newbookContainer">
         <Navbar/>
-        <div className="top">
+        <div className="topbook">
           <h1>Add New Book</h1>
         </div>
-        <div className="bottom">
-          <div className="right">
+        <div className="bottombook">
+          <div className="rightbook">
             <form>
               {bookInputs.map((input) => (
-                <div className="formInput" key={input.id}>
+                <div className="formInputbook" key={input.id}>
                   <label>{input.label}</label>
                   <input id={input.id} onChange={handleChange} type={input.type} placeholder={input.placeholder} />
                 </div>
               ))}
-              <button onClick={handleClick} >Send</button>
+              <button className='btnbook' onClick={handleClick}>Send</button>
             </form>
           </div>
         </div>
