@@ -49,7 +49,7 @@ const ResetPassword = () => {
   const handleCLick = async e => {
     e.preventDefault() 
     try{
-      const res = await axios.put(`https://api.tickether.io/api/resetPassword/${param.id}/resetpassword/${param.token}`, credentials);
+      const res = await axios.put(`https://api.tickether.io/api/resetPassword/${param.id}/${param.token}`, credentials);
       console.log(res)
       navigate('/login')
     } catch(err) {
