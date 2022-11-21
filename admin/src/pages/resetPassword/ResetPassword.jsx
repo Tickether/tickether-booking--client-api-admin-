@@ -29,7 +29,6 @@ const ResetPassword = () => {
       const verifyEmailUrl = async () => {
           try {
               const res = axios.get(`https://api.tickether.io/api/bookers/${param.id}/resetpassword/${param.token}`)
-              console.log(res);
               setRes(await res)
           } catch (err) {
               console.log(err)
@@ -41,7 +40,7 @@ const ResetPassword = () => {
       }
   },[param, response])
 
-  console.log(response)
+
 
   
 
@@ -49,7 +48,7 @@ const ResetPassword = () => {
   const handleCLick = async e => {
     e.preventDefault() 
     try{
-      const res = await axios.put(`https://api.tickether.io/api/auth/resetPassword/${param.id}/${param.token}`, credentials);
+      const res = await axios.put(`https://api.tickether.io/api/auth/resetPassword/${param.id}`, credentials);
       console.log(res)
       navigate('/login')
     } catch(err) {
