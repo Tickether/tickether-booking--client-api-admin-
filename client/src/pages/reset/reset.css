@@ -1,0 +1,35 @@
+.reset {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rInput{
+    height: 30px;
+    padding: 10px;
+}
+
+.rButton{
+    border: none;
+    padding: 10px 20px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.rButton.disabled{
+    border: none;
+    padding: 10px 20px;
+    background-color: rgb(178, 125, 228);
+
+    cursor: not-allowed;
+}

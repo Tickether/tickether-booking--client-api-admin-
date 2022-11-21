@@ -9,6 +9,8 @@ import ListGenre from './pages/listGenre/ListGenre';
 import ListRegion from './pages/listRegion/ListRegion';
 import Signup from './pages/signup/Signup';
 import EmailVerify from './pages/emailVerify/EmailVerify';
+import ResetPassword from './pages/resetPassword/ResetPassword';
+import Reset from './pages/reset/Reset';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/bookers/:id/verify/:token' element={<EmailVerify/>}/>
+        <Route path='/reset' element={<Reset/>}/>
+        <Route path='/bookers/:id/resetpassword/:token' element={<ResetPassword/>}/>
         <Route path='/bookings' element={<Bookings/>}/>
         <Route path='/success/:id' element={<Success/>}/>
         <Route path='/bookees/region/:id' element={<ListRegion/>}/>

@@ -50,6 +50,7 @@ const Login = () => {
                 />
                 <button disabled={loading} onClick={handleClick} className="lButton">Login</button>
                 <p>Dont have an account? <Link to='/signup'>Sign Up</Link></p>
+                <p>Forgot your password? <Link to='/reset'>Reset</Link></p>
                 {error && <span>{error.message}</span>}
             </div>
         </div>
