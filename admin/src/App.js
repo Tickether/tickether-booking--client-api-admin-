@@ -19,6 +19,8 @@ import Signup from './pages/signup/Signup';
 import EmailVerify from './pages/emailVerify/EmailVerify';
 import Reset from './pages/reset/Reset';
 import ResetPassword from './pages/resetPassword/ResetPassword';
+import Balances from './pages/balances/Balances';
+import Sales from './pages/sales/Sales';
 
 
 function App() {
@@ -132,6 +134,58 @@ function App() {
                     <NewBooking 
                       inputs={bookingInputs} 
                       title='Add New Off-Book'/>
+                  </ProtectedRoute> 
+                } 
+              />
+            </Route>
+            <Route path="balances">
+              <Route 
+                index 
+                element={ 
+                  <ProtectedRoute>
+                    <Balances/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path=":bookeeId" 
+                element={ 
+                  <ProtectedRoute>
+                    <Single/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path="new" 
+                element={ 
+                  <ProtectedRoute>
+                    <NewBookee/>
+                  </ProtectedRoute> 
+                } 
+              />
+            </Route>
+            <Route path="sales">
+              <Route 
+                index 
+                element={ 
+                  <ProtectedRoute>
+                    <Sales/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path=":bookeeId" 
+                element={ 
+                  <ProtectedRoute>
+                    <Single/>
+                  </ProtectedRoute> 
+                }
+              />
+              <Route 
+                path="new" 
+                element={ 
+                  <ProtectedRoute>
+                    <NewBookee/>
                   </ProtectedRoute> 
                 } 
               />
