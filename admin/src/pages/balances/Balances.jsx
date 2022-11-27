@@ -1,6 +1,7 @@
 import './balances.scss';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import BalancesList from '../../components/balancesList/BalancesList';
 
 
 const Balances = () => {
@@ -9,6 +10,7 @@ const Balances = () => {
       <Sidebar/>
       <div className="balancesContainer">
         <Navbar/>
+        <BalancesList/>
       </div>
     </div>
   );

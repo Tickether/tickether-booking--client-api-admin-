@@ -1,6 +1,7 @@
 import './sales.scss';
 import Navbar from '../../components/navbar/Navbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import SalesList from '../../components/salesList/SalesList';
 
 
 const Sales = () => {
@@ -9,6 +10,7 @@ const Sales = () => {
       <Sidebar/>
       <div className="salesContainer">
         <Navbar/>
+        <SalesList/>
       </div>
     </div>
   );
