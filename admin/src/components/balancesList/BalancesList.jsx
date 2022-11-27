@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 import useFetch from '../../hooks/useFetch';
 import { useState } from 'react';
 import Web3Modal from "web3modal";
+import WithdrawalItems from './withdrawalItems/WithdrawalItems';
 
 
 const providerOptions = {
@@ -37,10 +38,8 @@ const BalancesList = () => {
 
     const [web3Provider, setWeb3Provider] = useState(null)
 
-    const [books, setBook] = useState([])
     const [selectBook, setSelectBook] = useState({})
     const [withdrawals, setWithdrawals] = useState([])
-    const [info, setInfo] = useState({});
 
     const { data, loading } = useFetch(`https://api.tickether.io/api/bookees/books/${user.bookee[0]}`)
 
@@ -75,7 +74,6 @@ const BalancesList = () => {
 
     const handleSelect = async (e) => {
         const value = Array.from(e.target.selectedOptions, option => option.value)
-        setBook(value)
         const book = await axios.get(`https://api.tickether.io/api/books/${value}`)
         const _withdrawals = await axios.get(`https://api.tickether.io/api/books/withdrawals/${value}`)
         setSelectBook(book.data)
@@ -98,7 +96,7 @@ const BalancesList = () => {
             try{
                 
                 // attempt udsc  withdraw
-                const response = await bookingContract.withdraw();
+                const response = await bookingContract.withdrawERC20();
                 console.log(response)
 
                 //After metamask corfirmation of mint and store txid
@@ -114,10 +112,8 @@ const BalancesList = () => {
 
                 //DB Data
                 const newWithdrawal = {
-                    ...info,
                     txnId: transactionHash,
-                    booker: user._id,
-                    book: books[0],
+                    book: selectBook._id,
                     bookee: user.bookee[0],
                 }
 
@@ -142,10 +138,18 @@ const BalancesList = () => {
                         <option key={item._id} value={item._id}>{item.bookName}</option>
                     ))}
                 </select>
-                <div className='bookInfo'>
-                    <div className='infoType'>Booking Type: {selectBook.bookType}</div>
-                    <span>Booking Fee: </span>
-                    <span>{selectBook.bookFee}</span>
+                <div className='withdrawInfo'>
+                    <div className="listResults">
+                        {loading ? (
+                            "loading"
+                        )   :   (
+                            <>
+                                {withdrawals.map(item=>(
+                                    <WithdrawalItems item={item} key={item._id}/>
+                                ))}
+                            </>
+                        )}
+                    </div>
                 </div>
             </div> 
             {web3Provider == null ? (
