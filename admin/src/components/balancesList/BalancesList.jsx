@@ -30,11 +30,15 @@ const providerOptions = {
     
 };
 
+
+
     
 
 const BalancesList = () => {
 
     const user = JSON.parse(localStorage.getItem('user'))
+
+    const usdcAddress = '0x07865c6E87B9F70255377e024ace6630C1Eaa37F';
 
     const [web3Provider, setWeb3Provider] = useState(null)
 
@@ -44,6 +48,10 @@ const BalancesList = () => {
     const { data, loading } = useFetch(`https://api.tickether.io/api/bookees/books/${user.bookee[0]}`)
 
     //const navigate = useNavigate()
+
+    const bookBalance = (
+        'https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=' + usdcAddress + '&address=' + selectBook.contractAddress + '&tag=latest&apikey=' + process.env.ETHERSCAN_API_TOKEN + '/'
+    )
 
     const connectAccount = async () => { 
         try {

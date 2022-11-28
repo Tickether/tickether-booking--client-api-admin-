@@ -9,6 +9,7 @@
     "@mui/material": "^5.10.5",
     "@mui/x-data-grid": "^5.17.3",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.1",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
